@@ -29,6 +29,7 @@ import {
 } from "../ui/select";
 import { redirect, usePathname } from "next/navigation";
 import { UpdateService } from "@/lib/actions/service.action";
+import Image from "next/image";
 
 interface Props {
 	serviceId: string;
@@ -132,7 +133,12 @@ const EditService = ({ serviceId, service }: Props) => {
 						name="image_url"
 						render={({ field }) => (
 							<FormItem className="flex flex-col gap-3 w-full">
-								<FormLabel>Profile Image</FormLabel>
+								<FormLabel>
+									<div className="mb-3">
+										<Image src={field.value} alt="image" width={400} height={400} className="object-cover mx-auto rounded-lg" />
+									</div>
+									Profile Image
+								</FormLabel>
 								<FormControl>
 									<Input
 										type="file"

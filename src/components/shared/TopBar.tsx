@@ -8,7 +8,7 @@ const TopBar = () => {
 	const { user } = useUser();
 
 	return (
-		<nav className="fixed top-0 z-30 w-full flexBetween bg-low-orange px-6 h-[4rem] border-b border-b-nav-gray">
+		<nav className="fixed top-0 z-30 w-full flexBetween bg-low-orange px-6 h-[4rem] border-b border-b-dark-gray">
 			<Link href="/" className="flex items-center gap-2">
 				<Image
 					src="/images/logo.png"

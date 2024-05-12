@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
 	return (
 		<Providers>
-			<html lang="en">
+			<html lang="en" suppressHydrationWarning>
 				<body className={font.className}>
 					<main className="w-full min-h-screen flexCenter bg-main-orange">
 						<header className="absolute top-0 flex items-center justify-between w-full max-w-3xl px-10 mx-auto h-14">

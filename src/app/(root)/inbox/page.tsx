@@ -3,7 +3,7 @@ import BreadCrumbs from "@/components/shared/BreadCrumbs";
 const Inbox = () => {
 	const breadCrumbs = [
 		{
-			name: "Your Inbox",
+			name: "Inbox",
 			href: "/inbox",
 		},
 	];
@@ -11,7 +11,7 @@ const Inbox = () => {
 	return (
 		<>
 			<header className="header">
-				<h1 className="head-text">Profile</h1>
+				<h1 className="head-text">Inbox</h1>
 				<BreadCrumbs crumbs={breadCrumbs} />
 			</header>
 			<section>Inbox</section>

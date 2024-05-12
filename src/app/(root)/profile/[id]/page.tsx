@@ -3,7 +3,7 @@ import BreadCrumbs from "@/components/shared/BreadCrumbs";
 const Profile = ({ params } : { params: { id :string } }) => {
 	const breadCrumbs = [
 		{
-			name: "Your Profile",
+			name: "Profile",
 			href: `/profile/${params.id}`
 		}
 	]

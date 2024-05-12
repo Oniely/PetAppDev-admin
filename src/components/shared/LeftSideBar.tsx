@@ -12,7 +12,7 @@ const LeftSideBar = () => {
 	const { userId } = useAuth();
 
 	return (
-		<aside className="sticky top-0 left-0 z-20 flex flex-col justify-between h-screen pb-5 overflow-auto w-fit bg-low-orange border-r border-r-light-orange pt-28 max-md:hidden">
+		<aside className="sticky top-0 left-0 z-20 flex flex-col justify-between h-screen pb-5 overflow-auto w-fit bg-low-orange pt-28 max-md:hidden">
 			<div className="flex flex-col flex-1 w-full gap-6 px-6">
 				{NAV_LINKS.map((link) => {
 					const isActive =
