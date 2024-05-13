@@ -11,25 +11,18 @@ interface Props {
 
 const DashboardCard = ({ title, image_url, data, className, href }: Props) => {
 	return (
-		<Link href={href} className="relative">
+		<Link href={href}>
 			<div
-				className={`${className} flex items-center gap-3 px-4 max-lg:px-6 h-[10rem] max-lg:h-[8rem] min-w-fit rounded-xl cursor-pointer group shadow-sm`}
+				className={`${className} flex gap-3 px-4 py-4 max-lg:px-6 h-[10rem] max-lg:h-[8rem] min-w-fit rounded-xl cursor-pointer group shadow-sm relative overflow-hidden`}
 			>
-				<div className="w-[4.5rem] h-[4.5rem] relative bg-black/10 rounded-full shrink-0">
-					<Image
-						src={image_url}
-						alt="calendar"
-						className="object-cover p-5"
-						fill
-					/>
-				</div>
-				<div className="flex flex-col leading-6">
+				<div className="flex flex-col gap-4 leading-6">
 					<h2 className="font-medium">{title}</h2>
-					<p className="text-xl font-semibold">{data}</p>
-					<p className="leading-normal"></p>
+					<p className="text-4xl font-semibold">{data}</p>
 				</div>
 
-				<div className="absolute w-8 h-8 overflow-hidden transition-all bg-white rounded-full top-3 right-3 ease">
+				<Image src={image_url} alt={title} width={125} height={125} className="absolute -bottom-7 right-6" />
+
+				<div className="absolute w-8 h-8 overflow-hidden transition-all bg-white rounded-full top-3 right-3 ease-in-out delay-500">
 					<Image
 						src="/images/arrow-right.svg"
 						alt=">"

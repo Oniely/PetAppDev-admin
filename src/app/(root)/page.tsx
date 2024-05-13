@@ -19,7 +19,6 @@ const Home = async () => {
 					<span className="font-light">Welcome to</span>{" "}
 					{userData.companyName}
 					<span className="font-light">'s Dashboard</span>
-					<br />
 				</h1>
 				<BreadCrumbs />
 			</header>
@@ -43,19 +42,21 @@ const Home = async () => {
 					<DashboardCard
 						className="bg-[#79B4A9]"
 						title="Inbox"
-						image_url="/images/calendar.svg"
+						image_url="/images/inbox.svg"
 						data="10"
 						href="/services"
 					/>
 					<DashboardCard
 						className="bg-[#84DCC6]"
 						title="Earnings"
-						image_url="/images/calendar.svg"
+						image_url="/images/credit-card.svg"
 						data="$100"
 						href="/services"
 					/>
 				</div>
-				<div></div>
+				<div className="">
+
+				</div>
 			</section>
 		</>
 	);

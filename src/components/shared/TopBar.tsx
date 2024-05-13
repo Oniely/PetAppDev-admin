@@ -3,6 +3,8 @@
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
+import { Button } from "../ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 const TopBar = () => {
 	const { user } = useUser();
@@ -20,7 +22,28 @@ const TopBar = () => {
 			</Link>
 
 			<div className="flexCenter gap-2">
-				<Image src={user?.imageUrl!} alt="Profile Photo" width={35} height={35} className="rounded-full aspect-square" />
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant='link'>
+							<Image src='/images/notification.svg' alt="notification" width={25} height={25} />
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent className="w-[15rem]">
+						<DropdownMenuLabel>Notifications</DropdownMenuLabel>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem>Profile</DropdownMenuItem>
+						<DropdownMenuItem>Billing</DropdownMenuItem>
+						<DropdownMenuItem>Team</DropdownMenuItem>
+						<DropdownMenuItem>Subscription</DropdownMenuItem>
+					</DropdownMenuContent>
+				</DropdownMenu>
+				<Image
+					src={user?.imageUrl!}
+					alt="Profile Photo"
+					width={30}
+					height={30}
+					className="rounded-full aspect-square"
+				/>
 			</div>
 		</nav>
 	);
