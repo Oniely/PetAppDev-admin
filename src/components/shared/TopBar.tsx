@@ -28,13 +28,13 @@ const TopBar = () => {
 							<Image src='/images/notification.svg' alt="notification" width={25} height={25} />
 						</Button>
 					</DropdownMenuTrigger>
-					<DropdownMenuContent className="w-[15rem]">
+					<DropdownMenuContent>
 						<DropdownMenuLabel>Notifications</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>Profile</DropdownMenuItem>
-						<DropdownMenuItem>Billing</DropdownMenuItem>
-						<DropdownMenuItem>Team</DropdownMenuItem>
-						<DropdownMenuItem>Subscription</DropdownMenuItem>
+						<DropdownMenuItem>Notif Item</DropdownMenuItem>
+						<DropdownMenuItem>Notif Item</DropdownMenuItem>
+						<DropdownMenuItem>Notif Item</DropdownMenuItem>
+						<DropdownMenuItem>Notif Item</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>
 				<Image

@@ -30,6 +30,7 @@ import {
 import { redirect, usePathname } from "next/navigation";
 import { UpdateService } from "@/lib/actions/service.action";
 import Image from "next/image";
+import { toast } from "../ui/use-toast";
 
 interface Props {
 	serviceId: string;
@@ -111,6 +112,11 @@ const EditService = ({ serviceId, service }: Props) => {
 			}
 
 			await UpdateService(newService);
+			toast({
+				variant: "default",
+				title: "Service updated successfully.",
+				description: `You've updated ${values.serviceName}`
+			})
 		} catch (error: any) {
 			throw new Error(
 				`Something occur while creating a service... ${error.message}`

@@ -5,6 +5,7 @@ import TopBar from "@/components/shared/TopBar";
 import LeftSideBar from "@/components/shared/LeftSideBar";
 import BottomBar from "@/components/shared/BottomBar";
 import Providers from "@/lib/contexts/Providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const font = Outfit({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({
 						</section>
 					</main>
 					<BottomBar />
+					<Toaster />
 				</body>
 			</html>
 		</Providers>

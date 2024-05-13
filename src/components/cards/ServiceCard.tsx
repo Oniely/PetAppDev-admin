@@ -14,7 +14,7 @@ interface Props {
 const ServiceCard = ({ serviceId, image_url, name, type, price, status }: Props) => {
 	return (	
 		<div className="bg-neutral-300 relative group rounded-xl flex items-end overflow-hidden h-[240px]">
-			<div className={`w-4 h-4 absolute top-3 right-3 rounded-full group-hover:animate-pulse ${status ? "bg-green-400" : "bg-yellow-400"}`} />
+			<div className={`w-3 h-3 absolute top-3 right-3 rounded-full group-hover:animate-pulse z-50 ${status ? "bg-green-400" : "bg-yellow-400"}`} />
 			
 			<Image src={image_url} alt="image" className="object-cover object-top" fill />
 			

@@ -8,6 +8,7 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import React from "react";
 
 interface BreadCrumb {
 	name: string;
@@ -21,7 +22,7 @@ export interface BreadCrumbProps {
 const BreadCrumbs = ({ crumbs = [] }: BreadCrumbProps) => {
 	return (
 		<Breadcrumb>
-			<BreadcrumbList className="flex justify-end">
+			<BreadcrumbList className="flex justify-end" key={1}>
 				<BreadcrumbItem>
 					{crumbs.length === 0 ? (
 						<BreadcrumbPage>Home</BreadcrumbPage>
@@ -33,11 +34,11 @@ const BreadCrumbs = ({ crumbs = [] }: BreadCrumbProps) => {
 					<Slash />
 				</BreadcrumbSeparator>
 
-				{crumbs!.length > 0 &&
-					crumbs!.map((crumb, i) => (
-						<>
-							<BreadcrumbItem key={i}>
-								{i !== crumbs!.length - 1 ? (
+				{crumbs.length > 0 &&
+					crumbs.map((crumb, idx) => (
+						<React.Fragment key={idx}>
+							<BreadcrumbItem key={`crumb-${idx}`}>
+								{idx !== crumbs.length - 1 ? (
 									<BreadcrumbLink href={crumb.href}>
 										{crumb.name}
 									</BreadcrumbLink>
@@ -47,12 +48,12 @@ const BreadCrumbs = ({ crumbs = [] }: BreadCrumbProps) => {
 									</BreadcrumbPage>
 								)}
 							</BreadcrumbItem>
-							{i !== crumbs!.length - 1 && (
-								<BreadcrumbSeparator key={`sep-${i}`}>
+							{idx !== crumbs.length - 1 && (
+								<BreadcrumbSeparator key={`separator-${idx}`}>
 									<Slash />
 								</BreadcrumbSeparator>
 							)}
-						</>
+						</React.Fragment>
 					))}
 			</BreadcrumbList>
 		</Breadcrumb>

@@ -13,7 +13,7 @@ const Services = async () => {
 	const breadCrumbs = [
 		{
 			name: "Services",
-			href: "/services"
+			href: "/services",
 		},
 	];
 
@@ -27,9 +27,11 @@ const Services = async () => {
 				<h1 className="head-text">Services</h1>
 				<BreadCrumbs crumbs={breadCrumbs} />
 			</header>
-			<div>
-				<SearchBar />
-			</div>
+			{services.length > 0 && (
+				<div className="w-1/3">
+					<SearchBar />
+				</div>
+			)}
 			<section className="">
 				{services.length > 0 && (
 					<div className="grid grid-cols-3 max-sm:grid-cols-2 gap-3">
@@ -50,10 +52,8 @@ const Services = async () => {
 				{services.length < 1 && (
 					<div className="w-full h-[60vh] flex flex-col items-center justify-center gap-3">
 						<p>You have no added services yet.</p>
-						<Link href='/create-service'>
-							<Button>
-								Add New Service
-							</Button>
+						<Link href="/create-service">
+							<Button>Add New Service</Button>
 						</Link>
 					</div>
 				)}

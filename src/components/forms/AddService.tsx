@@ -30,6 +30,7 @@ import {
 import { usePathname } from "next/navigation";
 import { CreateService } from "@/lib/actions/service.action";
 import { useUser } from "@clerk/nextjs";
+import { toast } from "../ui/use-toast";
 
 const AddService = () => {
 	const { user } = useUser();
@@ -99,6 +100,11 @@ const AddService = () => {
 				price: values.price,
 				path: pathname,
 			});
+			toast({
+				variant: "default",
+				title: "Successfully created a new service.",
+				description: `You've created ${values.serviceName}`
+			})
 		} catch (error: any) {
 			throw new Error(
 				`Something occur while creating a service... ${error.message}`
