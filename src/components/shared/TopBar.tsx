@@ -18,7 +18,7 @@ const TopBar = () => {
 					width={35}
 					height={35}
 				/>
-				<p className="max-md:hidden ">Pet App</p>
+				<p className="max-md:hidden ">PetCompanion</p>
 			</Link>
 
 			<div className="flexCenter gap-2">
