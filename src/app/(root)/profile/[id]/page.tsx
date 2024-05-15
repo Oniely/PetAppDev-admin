@@ -1,20 +1,12 @@
-import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import ProfileSideBar from "@/components/shared/ProfileSideBar";
 
 const Profile = ({ params }: { params: { id: string } }) => {
-	const breadCrumbs = [
-		{
-			name: "Profile",
-			href: `/profile/${params.id}`,
-		},
-	];
-
 	return (
-		<section className="flex flex-row h-full">
+		<section className="flex flex-row h-full max-md:flex-col">
 			<ProfileSideBar active="Company Info" />
-			<main className="flex flex-col px-6">
-				<div>
-					<h1 className="text-2xl font-semibold">
+			<main className="flex-1 flex flex-col pl-6 max-md:pl-0">
+				<div className="pb-3 border-b border-b-gray-300">
+					<h1 className="text-3xl font-semibold">
 						Company Information
 					</h1>
 				</div>

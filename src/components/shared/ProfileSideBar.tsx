@@ -3,8 +3,8 @@ import { Button } from "../ui/button";
 
 const ProfileSideBar = ({ active }: { active: string }) => {
 	return (
-		<div className="flex flex-col gap-2 w-[14rem] border-r border-r-gray-300 pr-4">
-			<div className="text-xl font-semibold leading-6">
+		<div className="flex flex-col gap-2 w-[14rem] border-r border-r-gray-300 pr-4 max-md:border-r-0 max-md:mb-4">
+			<div className="text-xl font-semibold leading-6 max-md:text-3xl max-md:whitespace-nowrap max-[400px]:whitespace-normal">
 				User Profile Management
 			</div>
 			<div className="flex flex-col flex-1 gap-3 py-4">

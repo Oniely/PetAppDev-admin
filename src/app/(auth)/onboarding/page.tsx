@@ -21,7 +21,6 @@ const Onboarding = async () => {
 		experienceYears: userInfo?.experienceYears || "",
 		hourlyRate: userInfo?.hourlyRate || "",
 		bio: userInfo?.bio || "",
-		onboarded: userInfo?.onboarded,
 	};
 
 	return (

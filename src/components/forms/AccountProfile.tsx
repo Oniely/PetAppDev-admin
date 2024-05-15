@@ -31,7 +31,6 @@ interface Props {
 		experienceYears: string;
 		hourlyRate: string;
 		bio: string;
-		onboarded: boolean;
 	};
 }
 
