@@ -125,7 +125,6 @@ export const UpdateService = async ({
 
 	try {
 		connectDB();
-		console.log(image_url)
 		if (image_url) {
 			newService.image_url = image_url;
 		}

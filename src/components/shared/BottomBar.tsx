@@ -20,7 +20,7 @@ const BottomBar = () => {
 						pathname === link.route;
 
 					if (link.route === "/profile") {
-						link.route = `${link.route}/${userId}`;
+						link.route = `${link.route}/${userId}/info`;
 					}
 
 					return (
