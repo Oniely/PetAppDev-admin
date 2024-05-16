@@ -115,16 +115,17 @@ export const UpdateService = async ({
 	price,
 	path,
 }: UpdateServiceProps) => {
-	let newService: any = {
-		serviceName,
-		typeOfService,
-		description,
-		duration,
-		price,
-	}
-
 	try {
 		connectDB();
+
+		let newService: any = {
+			serviceName,
+			typeOfService,
+			description,
+			duration,
+			price,
+		}
+
 		if (image_url) {
 			newService.image_url = image_url;
 		}

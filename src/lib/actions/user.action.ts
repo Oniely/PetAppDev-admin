@@ -69,6 +69,18 @@ export async function upsertUser({
 	}
 }
 
+interface UpdateUserParams {
+	userId: string;
+	image_url?: string;
+	phoneNumber: string;
+	companyName: string;
+	typeOfProvider: string;
+	bio: string;
+	experienceYears: number;
+	hourlyRate: number;
+	path: string;
+}
+
 export async function updateUser({
 	image_url,
 	userId,
@@ -79,12 +91,46 @@ export async function updateUser({
 	experienceYears,
 	hourlyRate,
 	path,
-}: UserParams) {
-  try {
-    connectDB();
+}: UpdateUserParams) {
+	try {
+		connectDB();
 
-    
-  } catch (error: any) {
-    throw new Error(`An error occur while updating profile info: ${error.message}`);
-  }
+		let newUserData: any = {
+			phoneNumber,
+			typeOfProvider,
+			bio,
+			experienceYears,
+			hourlyRate,
+		};
+
+		if (image_url) {
+			newUserData.image_url = image_url;
+		}
+
+		const provider = await Provider.findOne({
+			companyName: companyName,
+			userId: { $ne: userId },
+		}).exec();
+
+		if (!provider) {
+			newUserData.companyName = companyName;
+
+			const updatedProvider = await Provider.findOneAndUpdate(
+				{ userId },
+				{ $set: newUserData },
+				{ new: true }
+			);
+
+			if (updatedProvider) {
+				revalidatePath(path);
+				return true;
+			}
+		}
+
+		return false;
+	} catch (error: any) {
+		throw new Error(
+			`An error occur while updating profile info: ${error.message}`
+		);
+	}
 }
