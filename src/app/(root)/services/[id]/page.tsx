@@ -40,7 +40,7 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 				</div>
 				<div className="flex flex-col justify-between sm:ml-12 max-sm:mt-4 h-[300px] max-sm:h-auto max-sm:gap-4">
 					<div className="flex flex-col gap-1">
-						<div className="flex items-center gap-2 mb-2 border-b border-b-neutral-500">
+						<div className="flex items-center justify-between gap-2 mb-2 border-b border-b-neutral-500">
 							<p className="text-xl font-semibold">
 								{service.serviceName}
 							</p>
@@ -51,7 +51,6 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 										: "after:bg-yellow-400"
 								}`}
 							>
-								-{" "}
 								{service.status ? "Available" : "Not Available"}
 							</p>
 						</div>
@@ -72,11 +71,14 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 								₱{service.price}
 							</span>
 						</p>
-						<ScrollArea className="max-h-[120px]">
-							<p className="text-neutral-700 font-light text-sm">
-								{service.description}
-							</p>
-						</ScrollArea>
+						<p className="text-neutral-700 font-light">
+							Description:
+							<ScrollArea className="max-h-[120px]">
+								<p className="text-neutral-700 font-light text-sm">
+									{service.description}
+								</p>
+							</ScrollArea>
+						</p>
 					</div>
 					<div className="flex items-center gap-3">
 						<Link

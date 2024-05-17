@@ -1,6 +1,7 @@
 import DashboardCard from "@/components/cards/DashboardCard";
 import UpcomingCard from "@/components/cards/UpcomingCard";
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
+import { fetchServices } from "@/lib/actions/service.action";
 import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
@@ -13,6 +14,9 @@ const Home = async () => {
 	if (!userData?.onboarded) {
 		redirect("/onboarding");
 	}
+
+	const services = await fetchServices(user?.id!);
+	const activeServices = services.filter((service: any) => service.status);
 
 	return (
 		<>
@@ -38,7 +42,7 @@ const Home = async () => {
 						className="bg-[#ACD7EC]"
 						title="Active Services"
 						image_url="/images/services.svg"
-						data="10"
+						data={activeServices.length}
 						href="/services"
 					/>
 					<DashboardCard

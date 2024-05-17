@@ -124,13 +124,16 @@ export const UpdateService = async ({
 			description,
 			duration,
 			price,
-		}
+		};
 
 		if (image_url) {
 			newService.image_url = image_url;
 		}
-		
-		await Service.findOneAndUpdate({ _id: serviceId }, { $set: newService });
+
+		await Service.findOneAndUpdate(
+			{ _id: serviceId },
+			{ $set: newService }
+		);
 		revalidatePath(path);
 	} catch (error: any) {
 		throw new Error(

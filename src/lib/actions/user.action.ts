@@ -8,7 +8,7 @@ export async function fetchUser(userId: string) {
 	try {
 		connectDB();
 
-		return await Provider.findOne({ userId });
+		return await Provider.findOne({ userId }).exec();
 	} catch (error: any) {
 		throw new Error(`Failed to fetch user: ${error.message}`);
 	}

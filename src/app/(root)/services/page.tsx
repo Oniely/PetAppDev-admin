@@ -21,6 +21,8 @@ const Services = async () => {
 		return;
 	}
 
+	console.log(services);
+
 	return (
 		<>
 			<header className="header">
