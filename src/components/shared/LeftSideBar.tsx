@@ -45,8 +45,8 @@ const LeftSideBar = () => {
 					);
 				})}
 			</div>
-			<div className="px-6 mt-10">
-				<SignedIn>
+			<SignedIn>
+				<div className="px-6 mt-10">
 					<SignOutButton redirectUrl="/sign-in">
 						<div className="flex gap-4 p-4 rounded-lg cursor-pointer hover:bg-main-orange/20">
 							<Image
@@ -58,8 +58,8 @@ const LeftSideBar = () => {
 							<p className="max-lg:hidden">Logout</p>
 						</div>
 					</SignOutButton>
-				</SignedIn>
-			</div>
+				</div>
+			</SignedIn>
 		</aside>
 	);
 };

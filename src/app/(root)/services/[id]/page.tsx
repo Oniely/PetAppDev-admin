@@ -1,5 +1,13 @@
 import BreadCrumbs, { BreadCrumbProps } from "@/components/shared/BreadCrumbs";
 import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getService } from "@/lib/actions/service.action";
 import Image from "next/image";
@@ -44,7 +52,23 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 							<p className="text-xl font-semibold">
 								{service.serviceName}
 							</p>
-							<p
+							<Dialog>
+								<DialogTrigger>Open</DialogTrigger>
+								<DialogContent>
+									<DialogHeader>
+										<DialogTitle>
+											Status
+										</DialogTitle>
+										<DialogDescription>
+											This action cannot be undone. This
+											will permanently delete your account
+											and remove your data from our
+											servers.
+										</DialogDescription>
+									</DialogHeader>
+								</DialogContent>
+							</Dialog>
+							{/* <p
 								className={`text-neutral-700 relative after:content-[''] after:w-2 after:h-2 after:absolute after:top-0.5 after:ml-0.5 after:animate-pulse after:rounded-full ${
 									service.status
 										? "after:bg-green-400"
@@ -52,7 +76,7 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 								}`}
 							>
 								{service.status ? "Available" : "Not Available"}
-							</p>
+							</p> */}
 						</div>
 						<p className="text-neutral-800 lowercase">
 							<span className="capitalize">
