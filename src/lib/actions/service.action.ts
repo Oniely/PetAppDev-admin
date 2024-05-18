@@ -141,3 +141,26 @@ export const UpdateService = async ({
 		);
 	}
 };
+
+export async function serviceStatusChange({
+	serviceId,
+	status,
+	path,
+}: {
+	serviceId: string;
+	status: boolean;
+	path: string;
+}) {
+	try {
+		connectDB();
+
+		const service = await Service.findOneAndUpdate({ _id: serviceId }, { status: status }, { new: true }).exec();
+
+		revalidatePath(path);
+		return service ? true : false;
+	} catch (error: any) {
+		throw new Error(
+			`An error occur while change status of service: ${error.message}`
+		);
+	}
+}

@@ -1,13 +1,6 @@
-import BreadCrumbs, { BreadCrumbProps } from "@/components/shared/BreadCrumbs";
+import StatusDialog from "@/components/forms/StatusDialog";
+import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getService } from "@/lib/actions/service.action";
 import Image from "next/image";
@@ -48,35 +41,12 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 				</div>
 				<div className="flex flex-col justify-between sm:ml-12 max-sm:mt-4 h-[300px] max-sm:h-auto max-sm:gap-4">
 					<div className="flex flex-col gap-1">
-						<div className="flex items-center justify-between gap-2 mb-2 border-b border-b-neutral-500">
+						<div className="flex items-center justify-between gap-2 mb-2 border-b border-b-neutral-500 py-1">
 							<p className="text-xl font-semibold">
 								{service.serviceName}
 							</p>
-							<Dialog>
-								<DialogTrigger>Open</DialogTrigger>
-								<DialogContent>
-									<DialogHeader>
-										<DialogTitle>
-											Status
-										</DialogTitle>
-										<DialogDescription>
-											This action cannot be undone. This
-											will permanently delete your account
-											and remove your data from our
-											servers.
-										</DialogDescription>
-									</DialogHeader>
-								</DialogContent>
-							</Dialog>
-							{/* <p
-								className={`text-neutral-700 relative after:content-[''] after:w-2 after:h-2 after:absolute after:top-0.5 after:ml-0.5 after:animate-pulse after:rounded-full ${
-									service.status
-										? "after:bg-green-400"
-										: "after:bg-yellow-400"
-								}`}
-							>
-								{service.status ? "Available" : "Not Available"}
-							</p> */}
+
+							<StatusDialog serviceId={params.id} status={service.status} />
 						</div>
 						<p className="text-neutral-800 lowercase">
 							<span className="capitalize">
@@ -97,12 +67,12 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 						</p>
 						<p className="text-neutral-700 font-light">
 							Description:
-							<ScrollArea className="max-h-[120px]">
-								<p className="text-neutral-700 font-light text-sm">
-									{service.description}
-								</p>
-							</ScrollArea>
 						</p>
+						<ScrollArea className="max-h-[120px]">
+							<p className="text-neutral-700 font-light text-sm">
+								{service.description}
+							</p>
+						</ScrollArea>
 					</div>
 					<div className="flex items-center gap-3">
 						<Link

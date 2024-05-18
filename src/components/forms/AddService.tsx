@@ -31,6 +31,7 @@ import { usePathname } from "next/navigation";
 import { CreateService } from "@/lib/actions/service.action";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "../ui/use-toast";
+import Image from "next/image";
 
 const AddService = () => {
 	const { user } = useUser();
@@ -103,8 +104,8 @@ const AddService = () => {
 			toast({
 				variant: "default",
 				title: "Successfully created a new service.",
-				description: `You've created ${values.serviceName}`
-			})
+				description: `You've created ${values.serviceName}`,
+			});
 		} catch (error: any) {
 			throw new Error(
 				`Something occur while creating a service... ${error.message}`
@@ -127,7 +128,20 @@ const AddService = () => {
 						name="image_url"
 						render={({ field }) => (
 							<FormItem className="flex flex-col gap-3 w-full">
-								<FormLabel>Profile Image</FormLabel>
+								<FormLabel>
+									{field.value && (
+										<div className="mb-3">
+											<Image
+												src={field.value}
+												alt="image"
+												width={400}
+												height={400}
+												className="object-cover mx-auto rounded-lg"
+											/>
+										</div>
+									)}
+									Profile Image
+								</FormLabel>
 								<FormControl>
 									<Input
 										type="file"
@@ -208,9 +222,7 @@ const AddService = () => {
 								<FormLabel>
 									Duration{" - "}
 									<span className="text-dark-gray/70 font-light">
-										{
-											"(in minutes)"
-										}
+										{"(in minutes)"}
 									</span>
 								</FormLabel>
 								<FormControl>
