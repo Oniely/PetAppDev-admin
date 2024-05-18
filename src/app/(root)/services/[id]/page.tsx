@@ -29,7 +29,7 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 			</header>
 			<section className="grid grid-cols-2 max-sm:grid-cols-1 relative">
 				<div className="flex flex-col gap-3">
-					<div className="h-[300px] relative">
+					<div className="h-[300px] relative border rounded-lg">
 						<Image
 							src={service.image_url}
 							alt="Service Image"

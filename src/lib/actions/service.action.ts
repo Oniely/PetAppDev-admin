@@ -78,13 +78,25 @@ export const CreateService = async ({
 	}
 };
 
-export const fetchServices = async (userId: string) => {
+export const fetchServices = async (providerId: string) => {
 	try {
 		connectDB();
 
-		const services = await Provider.findOne({ userId }).populate(
-			"servicesOffered"
+		const services = await Service.find({ provider: providerId }).sort({ status: 'desc' }).exec();
+
+		return services;
+	} catch (error: any) {
+		throw new Error(
+			`An error occur while fetching services: ${error.message}`
 		);
+	}
+}
+
+export const fetchServicesByUserId = async (userId: string) => {
+	try {
+		connectDB();
+
+		const services = await Provider.findOne({ userId }).populate("servicesOffered");
 
 		return services.servicesOffered;
 	} catch (error: any) {
@@ -154,7 +166,11 @@ export async function serviceStatusChange({
 	try {
 		connectDB();
 
-		const service = await Service.findOneAndUpdate({ _id: serviceId }, { status: status }, { new: true }).exec();
+		const service = await Service.findOneAndUpdate(
+			{ _id: serviceId },
+			{ status: status },
+			{ new: true }
+		).exec();
 
 		revalidatePath(path);
 		return service ? true : false;

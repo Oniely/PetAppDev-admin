@@ -15,7 +15,7 @@ const Home = async () => {
 		redirect("/onboarding");
 	}
 
-	const services = await fetchServices(user?.id!);
+	const services = await fetchServices(userData._id);
 	const activeServices = services.filter((service: any) => service.status);
 
 	return (

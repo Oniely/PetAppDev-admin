@@ -27,7 +27,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { CreateService } from "@/lib/actions/service.action";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "../ui/use-toast";
@@ -39,6 +39,7 @@ const AddService = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { startUpload } = useUploadThing("media");
 
+	const router = useRouter();
 	const pathname = usePathname();
 
 	const form = useForm({
@@ -103,8 +104,8 @@ const AddService = () => {
 			});
 			toast({
 				variant: "default",
-				title: "Successfully created a new service.",
-				description: `You've created ${values.serviceName}`,
+				title: "Successfully created a new service",
+				description: `You've created ${values.serviceName}!`,
 			});
 		} catch (error: any) {
 			throw new Error(
@@ -136,7 +137,7 @@ const AddService = () => {
 												alt="image"
 												width={400}
 												height={400}
-												className="object-cover mx-auto rounded-lg"
+												className="object-cover mx-auto rounded-lg border border-dark-gray"
 											/>
 										</div>
 									)}
@@ -254,7 +255,10 @@ const AddService = () => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit">Create Service</Button>
+					<div className="flex items-center justify-between gap-6 max-md:flex-col-reverse max-md:items-stretch">
+						<Button onClick={() => router.back()} type="button" variant='outline' className='flex-1 py-3' size="lg">Cancel</Button>
+						<Button type="submit" className='flex-1 py-3' size="lg">Update Service</Button>
+					</div>
 				</form>
 			</Form>
 		</>

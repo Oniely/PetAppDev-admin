@@ -27,7 +27,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { redirect, usePathname } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 import { UpdateService } from "@/lib/actions/service.action";
 import Image from "next/image";
 import { toast } from "../ui/use-toast";
@@ -49,6 +49,7 @@ const EditService = ({ serviceId, service }: Props) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { startUpload } = useUploadThing("media");
 
+	const router = useRouter();
 	const pathname = usePathname();
 
 	const form = useForm({
@@ -141,7 +142,7 @@ const EditService = ({ serviceId, service }: Props) => {
 							<FormItem className="flex flex-col gap-3 w-full">
 								<FormLabel>
 									<div className="mb-3">
-										<Image src={field.value} alt="image" width={400} height={400} className="object-cover mx-auto rounded-lg" />
+										<Image src={field.value} alt="image" width={400} height={400} className="object-cover mx-auto rounded-lg border border-dark-gray" />
 									</div>
 									Profile Image
 								</FormLabel>
@@ -259,7 +260,10 @@ const EditService = ({ serviceId, service }: Props) => {
 							</FormItem>
 						)}
 					/>
-					<Button type="submit">Update Service</Button>
+					<div className="flex items-center justify-between gap-6 max-md:flex-col-reverse max-md:items-stretch">
+						<Button onClick={() => router.back()} type="button" variant='outline' className='flex-1 py-3' size="lg">Cancel</Button>
+						<Button type="submit" className='flex-1 py-3' size="lg">Update Service</Button>
+					</div>
 				</form>
 			</Form>
 		</>

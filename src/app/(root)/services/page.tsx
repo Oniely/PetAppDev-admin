@@ -3,12 +3,19 @@ import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import SearchBar from "@/components/shared/SearchBar";
 import { Button } from "@/components/ui/button";
 import { fetchServices } from "@/lib/actions/service.action";
+import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 
 const Services = async () => {
 	const user = await currentUser();
-	const services = await fetchServices(user?.id!);
+	const userData = await fetchUser(user?.id!);
+
+	const services = await fetchServices(userData._id);
+
+	if (!services) {
+		return;
+	}
 
 	const breadCrumbs = [
 		{
@@ -16,12 +23,6 @@ const Services = async () => {
 			href: "/services",
 		},
 	];
-
-	if (!services) {
-		return;
-	}
-
-	console.log(services);
 
 	return (
 		<>

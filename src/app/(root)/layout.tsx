@@ -25,11 +25,11 @@ export default function RootLayout({
 	return (
 		<Providers>
 			<html lang="en" suppressHydrationWarning>
-				<body className={font.className}>
+				<body className={`${font.className} bg-[#f1f1f1]`}>
 					<TopBar />
 					<main className="flex flex-row">
 						<LeftSideBar />
-						<section className="flex min-h-screen flex-1 flex-col px-4 pb-10 pt-28 max-md:mb-32 sm:px-10 bg-[#f1f1f1]">
+						<section className="flex min-h-screen flex-1 flex-col px-4 pb-10 pt-28 max-md:mb-32 sm:px-10">
 							{children}
 						</section>
 					</main>
