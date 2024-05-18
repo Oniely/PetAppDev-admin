@@ -2,7 +2,7 @@
 
 import { ServiceValidation, ServiceTypes } from "@/lib/validations/service";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Loading from "../shared/Loading";
@@ -27,21 +27,23 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "../ui/select";
-import { redirect, usePathname, useRouter } from "next/navigation";
-import { UpdateService } from "@/lib/actions/service.action";
+import { usePathname, useRouter } from "next/navigation";
+import { UpdateService, deleteService } from "@/lib/actions/service.action";
 import Image from "next/image";
 import { toast } from "../ui/use-toast";
+import DeleteService from "../DeleteService";
 
 interface Props {
 	serviceId: string;
 	service: {
-		image_url?: string,
-		serviceName?: string,
-		typeOfService?: string,
-		description?: string,
-		duration?: number,
-		price?: number,
-	}
+		id?: string;
+		image_url?: string;
+		serviceName?: string;
+		typeOfService?: string;
+		description?: string;
+		duration?: number;
+		price?: number;
+	};
 }
 
 const EditService = ({ serviceId, service }: Props) => {
@@ -99,7 +101,7 @@ const EditService = ({ serviceId, service }: Props) => {
 			duration: values.duration,
 			price: values.price,
 			path: pathname,
-		}
+		};
 
 		try {
 			if (files.length > 0) {
@@ -109,23 +111,43 @@ const EditService = ({ serviceId, service }: Props) => {
 					values.image_url = imgRes[0]?.url;
 					newService.image_url = values.image_url;
 				}
-
 			}
 
 			await UpdateService(newService);
 			toast({
 				variant: "default",
 				title: "Service updated successfully.",
-				description: `You've updated ${values.serviceName}`
-			})
+				description: `You've updated ${values.serviceName}`,
+			});
 		} catch (error: any) {
 			throw new Error(
-				`Something occur while creating a service... ${error.message}`
+				`An error has occur while creating a service... ${error.message}`
 			);
 		} finally {
 			setIsLoading(false);
 		}
 	};
+
+	async function onDeleteConfirm() {
+		setIsLoading(true);
+		try {
+			const result = await deleteService(service?.id!);
+
+			if (result) {
+				router.push('/services');
+			} else {
+				toast({
+					variant: "destructive",
+					title: "Service deletion has failed",
+					description: `You've failed to delete this service.`,
+				});
+			}
+		} catch (error: any) {
+			throw new Error(`An error has occur while creating a service... ${error.message} `);
+		} finally {
+			setIsLoading(false);
+		}
+	}
 
 	return (
 		<>
@@ -142,7 +164,13 @@ const EditService = ({ serviceId, service }: Props) => {
 							<FormItem className="flex flex-col gap-3 w-full">
 								<FormLabel>
 									<div className="mb-3">
-										<Image src={field.value} alt="image" width={400} height={400} className="object-cover mx-auto rounded-lg border border-dark-gray" />
+										<Image
+											src={field.value}
+											alt="image"
+											width={400}
+											height={400}
+											className="object-cover mx-auto rounded-lg border border-dark-gray"
+										/>
 									</div>
 									Profile Image
 								</FormLabel>
@@ -179,7 +207,10 @@ const EditService = ({ serviceId, service }: Props) => {
 						render={({ field }) => (
 							<FormItem className="flex flex-col gap-3 w-full">
 								<FormLabel>Type Of Service</FormLabel>
-								<Select onValueChange={field.onChange} defaultValue={field.value}>
+								<Select
+									onValueChange={field.onChange}
+									defaultValue={field.value}
+								>
 									<FormControl>
 										<SelectTrigger>
 											<SelectValue placeholder="Select service type" />
@@ -226,9 +257,7 @@ const EditService = ({ serviceId, service }: Props) => {
 								<FormLabel>
 									Duration{" - "}
 									<span className="text-dark-gray/70 font-light">
-										{
-											"(in minutes)"
-										}
+										{"(in minutes)"}
 									</span>
 								</FormLabel>
 								<FormControl>
@@ -261,8 +290,19 @@ const EditService = ({ serviceId, service }: Props) => {
 						)}
 					/>
 					<div className="flex items-center justify-between gap-6 max-md:flex-col-reverse max-md:items-stretch">
-						<Button onClick={() => router.back()} type="button" variant='outline' className='flex-1 py-3' size="lg">Cancel</Button>
-						<Button type="submit" className='flex-1 py-3' size="lg">Update Service</Button>
+						{/* <Button
+							onClick={() => router.back()}
+							type="button"
+							variant="outline"
+							className="flex-1 py-3"
+							size="lg"
+						>
+							Cancel
+						</Button> */}
+						<DeleteService onConfirm={onDeleteConfirm} />
+						<Button type="submit" className="flex-1 py-3" size="lg">
+							Update Service
+						</Button>
 					</div>
 				</form>
 			</Form>

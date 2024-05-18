@@ -6,6 +6,7 @@ const ServiceEdit = async ({ params }: { params: { id: string } }) => {
 	const service = await getService(params.id);
 
 	const serviceData = {
+		id: params.id,
 		image_url: service.image_url,
 		serviceName: service.serviceName,
 		typeOfService: service.typeOfService,

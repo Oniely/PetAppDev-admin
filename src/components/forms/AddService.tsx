@@ -256,8 +256,18 @@ const AddService = () => {
 						)}
 					/>
 					<div className="flex items-center justify-between gap-6 max-md:flex-col-reverse max-md:items-stretch">
-						<Button onClick={() => router.back()} type="button" variant='outline' className='flex-1 py-3' size="lg">Cancel</Button>
-						<Button type="submit" className='flex-1 py-3' size="lg">Update Service</Button>
+						<Button
+							onClick={() => router.back()}
+							type="button"
+							variant="outline"
+							className="flex-1 py-3"
+							size="lg"
+						>
+							Cancel
+						</Button>
+						<Button type="submit" className="flex-1 py-3" size="lg">
+							Update Service
+						</Button>
 					</div>
 				</form>
 			</Form>

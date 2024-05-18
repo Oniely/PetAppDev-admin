@@ -24,7 +24,7 @@ export const getService = async (serviceId: string) => {
 		return await Service.findById(serviceId).populate("provider");
 	} catch (error: any) {
 		throw new Error(
-			`An error occur while fetching a service: ${error.message}`
+			`An error has occur while fetching a service: ${error.message}`
 		);
 	}
 };
@@ -73,7 +73,7 @@ export const CreateService = async ({
 		revalidatePath(path);
 	} catch (error: any) {
 		throw new Error(
-			`An error occur when creating service: ${error.message}`
+			`An error has occur when creating service: ${error.message}`
 		);
 	}
 };
@@ -87,7 +87,7 @@ export const fetchServices = async (providerId: string) => {
 		return services;
 	} catch (error: any) {
 		throw new Error(
-			`An error occur while fetching services: ${error.message}`
+			`An error has occur while fetching services: ${error.message}`
 		);
 	}
 }
@@ -101,7 +101,7 @@ export const fetchServicesByUserId = async (userId: string) => {
 		return services.servicesOffered;
 	} catch (error: any) {
 		throw new Error(
-			`An error occur while fetching services: ${error.message}`
+			`An error has occur while fetching services: ${error.message}`
 		);
 	}
 };
@@ -149,7 +149,7 @@ export const UpdateService = async ({
 		revalidatePath(path);
 	} catch (error: any) {
 		throw new Error(
-			`An error occur while updating service: ${error.message}`
+			`An error has occur while updating service: ${error.message}`
 		);
 	}
 };
@@ -176,7 +176,19 @@ export async function serviceStatusChange({
 		return service ? true : false;
 	} catch (error: any) {
 		throw new Error(
-			`An error occur while change status of service: ${error.message}`
+			`An error has occur while changing status of service: ${error.message}`
 		);
+	}
+}
+
+export const deleteService = async (serviceId: string) => {
+	try {
+		connectDB();
+
+		const result = await Service.findOneAndDelete({ _id: serviceId });
+
+		return result ? true : false;
+	} catch (error: any) {
+		throw new Error(`An error has occur while deleting service: ${error.message}`);
 	}
 }
