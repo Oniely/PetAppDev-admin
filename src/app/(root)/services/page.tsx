@@ -31,7 +31,7 @@ const Services = async () => {
 				<BreadCrumbs crumbs={breadCrumbs} />
 			</header>
 			{services.length > 0 && (
-				<div className="w-1/3">
+				<div className="w-1/3 max-md:w-1/2">
 					<SearchBar />
 				</div>
 			)}
