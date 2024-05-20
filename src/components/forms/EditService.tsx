@@ -120,9 +120,11 @@ const EditService = ({ serviceId, service }: Props) => {
 				description: `You've updated ${values.serviceName}`,
 			});
 		} catch (error: any) {
-			throw new Error(
-				`An error has occur while creating a service... ${error.message}`
-			);
+			toast({
+				title: "Something went wrong...",
+				description: `Error: ${error.message}`,
+				variant: "destructive",
+			});
 		} finally {
 			setIsLoading(false);
 		}
@@ -134,7 +136,7 @@ const EditService = ({ serviceId, service }: Props) => {
 			const result = await deleteService(service?.id!);
 
 			if (result) {
-				router.push('/services');
+				router.push("/services");
 			} else {
 				toast({
 					variant: "destructive",
@@ -143,7 +145,11 @@ const EditService = ({ serviceId, service }: Props) => {
 				});
 			}
 		} catch (error: any) {
-			throw new Error(`An error has occur while creating a service... ${error.message} `);
+			toast({
+				title: "Something went wrong...",
+				description: `Error: ${error.message}`,
+				variant: "destructive",
+			});
 		} finally {
 			setIsLoading(false);
 		}

@@ -108,9 +108,11 @@ const AddService = () => {
 				description: `You've created ${values.serviceName}!`,
 			});
 		} catch (error: any) {
-			throw new Error(
-				`Something occur while creating a service... ${error.message}`
-			);
+			toast({
+				title: "Something went wrong...",
+				description: `Error: ${error.message}`,
+				variant: "destructive",
+			});
 		} finally {
 			setIsLoading(false);
 		}

@@ -116,9 +116,11 @@ const AccountProfile = ({ user }: Props) => {
 			}
 			setIsLoading(false);
 		} catch (error: any) {
-			throw new Error(
-				`Something went wrong registering ${error.message}`
-			);
+			toast({
+				title: "Something went wrong...",
+				description: `Error: ${error.message}`,
+				variant: "destructive",
+			});
 		} finally {
 			setIsLoading(false);
 		}
@@ -265,10 +267,7 @@ const AccountProfile = ({ user }: Props) => {
 								</FormLabel>
 								<FormControl>
 									<div className="flex items-center gap-2 relative">
-										<Input
-											type="text"
-											{...field}
-										/>
+										<Input type="text" {...field} />
 									</div>
 								</FormControl>
 								<FormMessage />
@@ -290,10 +289,7 @@ const AccountProfile = ({ user }: Props) => {
 								</FormLabel>
 								<FormControl>
 									<div className="flex items-center gap-2 relative">
-										<Input
-											type="text"
-											{...field}
-										/>
+										<Input type="text" {...field} />
 									</div>
 								</FormControl>
 								<FormMessage />

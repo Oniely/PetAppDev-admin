@@ -51,8 +51,8 @@ const StatusDialog = ({ serviceId, status }: Props) => {
 	const form = useForm({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			status: statusValue
-		}
+			status: statusValue,
+		},
 	});
 
 	async function onSubmit(values: z.infer<typeof FormSchema>) {
@@ -78,9 +78,11 @@ const StatusDialog = ({ serviceId, status }: Props) => {
 					"You have successfully updated the status of your service.",
 			});
 		} catch (error: any) {
-			throw new Error(
-				`Something went wrong while updating service status: ${error.message}`
-			);
+			toast({
+				title: "Something went wrong...",
+				description: `Error: ${error.message}`,
+				variant: "destructive",
+			});
 		} finally {
 			setLoading(false);
 			btnRef.current!.click();
@@ -146,7 +148,11 @@ const StatusDialog = ({ serviceId, status }: Props) => {
 							/>
 							<div className="grid grid-cols-2 gap-3">
 								<DialogClose asChild>
-									<Button type="button" variant="outline" ref={btnRef}>
+									<Button
+										type="button"
+										variant="outline"
+										ref={btnRef}
+									>
 										Cancel
 									</Button>
 								</DialogClose>
