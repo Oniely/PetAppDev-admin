@@ -6,12 +6,6 @@ const ServiceProviderSchema = new mongoose.Schema({
 		required: true,
 		unique: true,
 	},
-	userType: {
-		type: String,
-		enum: ["PetOwner", "ServiceProvider"],
-		default: "ServiceProvider",
-		required: true,
-	},
 	image_url: String,
 	phoneNumber: String,
 	companyName: {
