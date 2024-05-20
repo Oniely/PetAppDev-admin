@@ -9,7 +9,7 @@ enum ServiceTypes {
 	"PET_TRAINING",
 	"PET_BOARDING",
 	"PET_SITTING",
-	"PET_WALKING"
+	"PET_WALKING",
 }
 
 const ServiceSchema = new mongoose.Schema({
@@ -43,4 +43,5 @@ const ServiceSchema = new mongoose.Schema({
 	price: { type: Number, require: true },
 });
 
-export const Service = mongoose.models?.Service || mongoose.model("Service", ServiceSchema);
+export const Service =
+	mongoose.models.Service || mongoose.model("Service", ServiceSchema);

@@ -24,6 +24,8 @@ interface UserParams {
 	experienceYears: number;
 	hourlyRate: number;
 	onboarded: boolean;
+	startTime: string;
+	endTime: string;
 	path: string;
 }
 
@@ -37,6 +39,8 @@ export async function upsertUser({
 	experienceYears,
 	hourlyRate,
 	onboarded,
+	startTime,
+	endTime,
 	path,
 }: UserParams) {
 	try {
@@ -56,6 +60,10 @@ export async function upsertUser({
 					experienceYears,
 					hourlyRate,
 					onboarded,
+					operatingHours: {
+						startTime,
+						endTime,
+					},
 				},
 				{ upsert: true }
 			);
@@ -64,6 +72,7 @@ export async function upsertUser({
 		}
 
 		revalidatePath(path);
+		return true;
 	} catch (error: any) {
 		throw new Error(`Failed to insert/update user: ${error.message}`);
 	}
@@ -78,6 +87,8 @@ interface UpdateUserParams {
 	bio: string;
 	experienceYears: number;
 	hourlyRate: number;
+	startTime: string;
+	endTime: string;
 	path: string;
 }
 
@@ -90,6 +101,8 @@ export async function updateUser({
 	bio,
 	experienceYears,
 	hourlyRate,
+	startTime,
+	endTime,
 	path,
 }: UpdateUserParams) {
 	try {
@@ -101,6 +114,10 @@ export async function updateUser({
 			bio,
 			experienceYears,
 			hourlyRate,
+			operatingHours: {
+				startTime,
+				endTime,
+			},
 		};
 
 		if (image_url) {

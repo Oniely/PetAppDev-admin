@@ -31,6 +31,8 @@ interface Props {
 		experienceYears: string;
 		hourlyRate: string;
 		bio: string;
+		startTime: string;
+		endTime: string;
 	};
 }
 
@@ -51,6 +53,8 @@ const AccountProfile = ({ user }: Props) => {
 			bio: "",
 			experienceYears: 0,
 			hourlyRate: 0,
+			startTime: "",
+			endTime: "",
 		},
 	});
 
@@ -102,6 +106,8 @@ const AccountProfile = ({ user }: Props) => {
 				hourlyRate: values.hourlyRate,
 				bio: values.bio,
 				onboarded: true,
+				startTime: values.startTime,
+				endTime: values.endTime,
 				path: pathname,
 			});
 
@@ -124,13 +130,13 @@ const AccountProfile = ({ user }: Props) => {
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-1 flex-col justify-start gap-8"
+					className="grid grid-cols-2 justify-start gap-8"
 				>
 					<FormField
 						control={form.control}
 						name="image_url"
 						render={({ field }) => (
-							<FormItem className="flex flex-col gap-3 w-full">
+							<FormItem className="flex flex-col gap-3 w-full col-span-2">
 								<FormLabel>Profile Image</FormLabel>
 								<FormControl>
 									<Input
@@ -150,7 +156,7 @@ const AccountProfile = ({ user }: Props) => {
 						control={form.control}
 						name="companyName"
 						render={({ field }) => (
-							<FormItem className="flex flex-col gap-3 w-full">
+							<FormItem className="flex flex-col gap-3 w-full col-span-2">
 								<FormLabel>
 									Company Name{" - "}
 									<span className="text-dark-gray/70 font-light">
@@ -168,7 +174,7 @@ const AccountProfile = ({ user }: Props) => {
 						control={form.control}
 						name="typeOfProvider"
 						render={({ field }) => (
-							<FormItem className="flex flex-col gap-3 w-full">
+							<FormItem className="flex flex-col gap-3 w-full col-span-2">
 								<FormLabel>
 									Type of Service{" - "}
 									<span className="text-dark-gray/70 font-light">
@@ -186,7 +192,7 @@ const AccountProfile = ({ user }: Props) => {
 						control={form.control}
 						name="phoneNumber"
 						render={({ field }) => (
-							<FormItem className="flex flex-col gap-3 w-full">
+							<FormItem className="flex flex-col gap-3 w-full col-span-2">
 								<FormLabel>Contact Number</FormLabel>
 								<FormControl>
 									<Input {...field} />
@@ -204,7 +210,7 @@ const AccountProfile = ({ user }: Props) => {
 									Experience Years{" - "}
 									<span className="text-dark-gray/70 font-light">
 										{
-											"(*In years, just use 1 if less than a year)"
+											"*(In years, just use 1 if less than a year)"
 										}
 									</span>
 								</FormLabel>
@@ -224,7 +230,7 @@ const AccountProfile = ({ user }: Props) => {
 									Hourly Rate{" - "}
 									<span className="text-dark-gray/70 font-light">
 										{
-											"(*Add a general/average you'll have for your services )"
+											"*(minimum/average price for your service)"
 										}
 									</span>
 								</FormLabel>
@@ -246,9 +252,59 @@ const AccountProfile = ({ user }: Props) => {
 					/>
 					<FormField
 						control={form.control}
-						name="bio"
+						name="startTime"
 						render={({ field }) => (
 							<FormItem className="flex flex-col gap-3 w-full">
+								<FormLabel>
+									Start Time{" - "}
+									<span className="text-dark-gray/70 font-light">
+										{
+											"*The time format should be (HH:mm AM/PM) - 09:00 AM"
+										}
+									</span>
+								</FormLabel>
+								<FormControl>
+									<div className="flex items-center gap-2 relative">
+										<Input
+											type="text"
+											{...field}
+										/>
+									</div>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="endTime"
+						render={({ field }) => (
+							<FormItem className="flex flex-col gap-3 w-full">
+								<FormLabel>
+									End Time{" - "}
+									<span className="text-dark-gray/70 font-light">
+										{
+											"*The time format should be (HH:mm AM/PM) - 06:00 PM"
+										}
+									</span>
+								</FormLabel>
+								<FormControl>
+									<div className="flex items-center gap-2 relative">
+										<Input
+											type="text"
+											{...field}
+										/>
+									</div>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="bio"
+						render={({ field }) => (
+							<FormItem className="flex flex-col gap-3 w-full col-span-2">
 								<FormLabel>Bio</FormLabel>
 								<FormControl>
 									<Textarea {...field} />
@@ -259,7 +315,7 @@ const AccountProfile = ({ user }: Props) => {
 					/>
 					<Button
 						type="submit"
-						className="bg-dark-gray hover:bg-dark-gray/80"
+						className="bg-dark-gray hover:bg-dark-gray/80 col-span-2"
 					>
 						Continue
 					</Button>

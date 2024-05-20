@@ -21,10 +21,12 @@ const Onboarding = async () => {
 		experienceYears: userInfo?.experienceYears || "",
 		hourlyRate: userInfo?.hourlyRate || "",
 		bio: userInfo?.bio || "",
+		startTime: userInfo?.startTime || "",
+		endTime: userInfo?.endTime || "",
 	};
 
 	return (
-		<main className="mx-auto flex flex-col max-w-3xl px-10 py-20 w-full h-full self-start bg-low-orange/30 relative">
+		<main className="mx-auto flex flex-col max-w-4xl px-10 py-20 w-full h-full self-start bg-low-orange/30 relative">
 			<div className="absolute right-10">
 				<SignOutButton redirectUrl="/sign-in" /> 
 			</div>

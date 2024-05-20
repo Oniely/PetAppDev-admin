@@ -33,6 +33,8 @@ interface Props {
 		experienceYears: string;
 		hourlyRate: string;
 		bio: string;
+		startTime: string;
+		endTime: string;
 	};
 }
 
@@ -53,6 +55,8 @@ const ProfileInfo = ({ user }: Props) => {
 			bio: user.bio || "",
 			experienceYears: parseInt(user.experienceYears) || 0,
 			hourlyRate: parseInt(user.hourlyRate) || 0,
+			startTime: user.startTime || "",
+			endTime: user.endTime || "",
 		},
 	});
 
@@ -91,6 +95,8 @@ const ProfileInfo = ({ user }: Props) => {
 			experienceYears: values.experienceYears,
 			hourlyRate: values.hourlyRate,
 			bio: values.bio,
+			startTime: values.startTime,
+			endTime: values.endTime,
 			path: pathname
 		};
 
@@ -180,7 +186,7 @@ const ProfileInfo = ({ user }: Props) => {
 						control={form.control}
 						name="companyName"
 						render={({ field }) => (
-							<FormItem className="flex flex-col gap-3 w-full">
+							<FormItem className="flex flex-col gap-3 w-full col-span-2">
 								<FormLabel>Company Name</FormLabel>
 								<FormControl>
 									<Input {...field} />
@@ -242,6 +248,42 @@ const ProfileInfo = ({ user }: Props) => {
 										<Input
 											type="number"
 											className="pl-6"
+											{...field}
+										/>
+									</div>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="startTime"
+						render={({ field }) => (
+							<FormItem className="flex flex-col gap-3 w-full">
+								<FormLabel>Start Time</FormLabel>
+								<FormControl>
+									<div className="flex items-center gap-2 relative">
+										<Input
+											type="text"
+											{...field}
+										/>
+									</div>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<FormField
+						control={form.control}
+						name="endTime"
+						render={({ field }) => (
+							<FormItem className="flex flex-col gap-3 w-full">
+								<FormLabel>End Time</FormLabel>
+								<FormControl>
+									<div className="flex items-center gap-2 relative">
+										<Input
+											type="text"
 											{...field}
 										/>
 									</div>
