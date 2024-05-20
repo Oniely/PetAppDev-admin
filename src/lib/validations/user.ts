@@ -1,12 +1,13 @@
 import { z } from "zod";
 
 const timeFormat12Hour = /^(0[1-9]|1[0-2]):([0-5][0-9]) ?([AaPp][Mm])$/;
+const phoneNumberFormat = /^(09|\+639)\d{9}$/;
 
 export const UserValidation = z.object({
 	image_url: z.string().url().min(1),
 	companyName: z.string().min(1),
 	typeOfProvider: z.string().min(1),
-	phoneNumber: z.string().min(11),
+	phoneNumber: z.string().min(11).regex(phoneNumberFormat),
 	experienceYears: z.coerce.number().int().positive().min(1),
 	hourlyRate: z.coerce.number().int().positive().min(1),
 	bio: z.string().min(2).max(1000),
