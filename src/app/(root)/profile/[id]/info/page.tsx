@@ -16,8 +16,8 @@ const Profile = async ({ params }: { params: { id: string } }) => {
 		experienceYears: userInfo?.experienceYears || "",
 		hourlyRate: userInfo?.hourlyRate || "",
 		bio: userInfo?.bio || "",
-		startTime: userInfo.operatingHours.startTime || "",
-		endTime: userInfo.operatingHours.endTime || "",
+		startTime: userInfo.operatingHours?.startTime || "",
+		endTime: userInfo.operatingHours?.endTime || "",
 	};
 
 	return (

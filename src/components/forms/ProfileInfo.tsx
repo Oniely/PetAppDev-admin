@@ -97,7 +97,7 @@ const ProfileInfo = ({ user }: Props) => {
 			bio: values.bio,
 			startTime: values.startTime,
 			endTime: values.endTime,
-			path: pathname
+			path: pathname,
 		};
 
 		try {
@@ -108,7 +108,6 @@ const ProfileInfo = ({ user }: Props) => {
 					values.image_url = imgRes[0]?.url;
 					newUserData.image_url = values.image_url;
 				}
-
 			}
 
 			const result = await updateUser(newUserData);
@@ -120,15 +119,13 @@ const ProfileInfo = ({ user }: Props) => {
 					variant: "destructive",
 				});
 			} else {
-				toast({
-					title: "Successfully updated profile",
-					description: "You have updated your company's profile.",
-				});
 			}
 		} catch (error: any) {
-			throw new Error(
-				`Something went wrong registering ${error.message}`
-			);
+			toast({
+				title: "Something went wrong...",
+				description: `Error: ${error.message}`,
+				variant: "destructive",
+			});
 		} finally {
 			setIsLoading(false);
 		}
@@ -264,10 +261,7 @@ const ProfileInfo = ({ user }: Props) => {
 								<FormLabel>Start Time</FormLabel>
 								<FormControl>
 									<div className="flex items-center gap-2 relative">
-										<Input
-											type="text"
-											{...field}
-										/>
+										<Input type="text" {...field} />
 									</div>
 								</FormControl>
 								<FormMessage />
@@ -282,10 +276,7 @@ const ProfileInfo = ({ user }: Props) => {
 								<FormLabel>End Time</FormLabel>
 								<FormControl>
 									<div className="flex items-center gap-2 relative">
-										<Input
-											type="text"
-											{...field}
-										/>
+										<Input type="text" {...field} />
 									</div>
 								</FormControl>
 								<FormMessage />
