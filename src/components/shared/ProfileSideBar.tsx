@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "../ui/button";
+import LogoutDialog from "./LogoutDialog";
 
 const ProfileSideBar = ({ active }: { active: string }) => {
 	return (
@@ -12,10 +13,11 @@ const ProfileSideBar = ({ active }: { active: string }) => {
 					<Link href="/">
 						<Button
 							variant="ghost"
-							className={`w-full flex justify-start gap-2 ${active === "Company Info"
+							className={`w-full flex justify-start gap-2 ${
+								active === "Company Info"
 									? "text-dark-gray bg-[#f5f5f4]"
 									: "text-gray-500"
-								}`}
+							}`}
 						>
 							{/* prettier-ignore */}
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -27,25 +29,29 @@ const ProfileSideBar = ({ active }: { active: string }) => {
 					<Link href="/">
 						<Button
 							variant="ghost"
-							className={`w-full flex justify-start gap-2 ${active === "Email & Password"
+							className={`w-full flex justify-start gap-2 ${
+								active === "Email & Password"
 									? "text-dark-gray bg-[#f5f5f4]"
 									: "text-gray-500"
-								}`}
+							}`}
 						>
 							{/* prettier-ignore */}
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
 								<path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
 							</svg>
-							<span className="font-semibold">Email & Password</span>
+							<span className="font-semibold">
+								Email & Password
+							</span>
 						</Button>
 					</Link>
-					<Link href="/">
+					<Link href="/inbox">
 						<Button
 							variant="ghost"
-							className={`w-full flex justify-start gap-2 ${active === "Notifications"
+							className={`w-full flex justify-start gap-2 ${
+								active === "Notifications"
 									? "text-dark-gray bg-[#f5f5f4]"
 									: "text-gray-500"
-								}`}
+							}`}
 						>
 							{/* prettier-ignore */}
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -54,21 +60,22 @@ const ProfileSideBar = ({ active }: { active: string }) => {
 							<span className="font-semibold">Notifications</span>
 						</Button>
 					</Link>
-					<Link href="/">
+					<LogoutDialog asChild>
 						<Button
 							variant="ghost"
-							className={`w-full flex justify-start gap-2 ${active === "Logout"
+							className={`w-full flex justify-start gap-2 ${
+								active === "Logout"
 									? "text-dark-gray bg-[#f5f5f4]"
 									: "text-gray-500"
-								}`}
+							}`}
 						>
 							{/* prettier-ignore */}
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-								<path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
-							</svg>
+									<path strokeLinecap="round" strokeLinejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+								</svg>
 							<span className="font-semibold">Logout</span>
 						</Button>
-					</Link>
+					</LogoutDialog>
 				</div>
 			</div>
 		</aside>

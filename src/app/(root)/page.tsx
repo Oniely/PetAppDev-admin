@@ -35,28 +35,28 @@ const Home = async () => {
 						className="bg-[#D6EDFF]"
 						title="Appointments"
 						image_url="/images/calendar.svg"
-						data="10"
+						data="0"
 						href="/services"
 					/>
 					<DashboardCard
 						className="bg-[#ACD7EC]"
 						title="Active Services"
 						image_url="/images/services.svg"
-						data={activeServices.length}
+						data={activeServices.length.toString()}
 						href="/services"
 					/>
 					<DashboardCard
 						className="bg-[#79B4A9]"
 						title="Inbox"
 						image_url="/images/inbox.svg"
-						data="10"
+						data="0"
 						href="/services"
 					/>
 					<DashboardCard
 						className="bg-[#84DCC6]"
 						title="Earnings"
 						image_url="/images/credit-card.svg"
-						data="$100"
+						data="₱0"
 						href="/services"
 					/>
 				</div>

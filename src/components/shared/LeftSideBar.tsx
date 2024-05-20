@@ -5,6 +5,7 @@ import { SignedIn, SignOutButton, useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import LogoutDialog from "./LogoutDialog";
 
 const LeftSideBar = () => {
 	const pathname = usePathname();
@@ -46,7 +47,7 @@ const LeftSideBar = () => {
 				})}
 			</div>
 			<SignedIn>
-				<SignOutButton redirectUrl="/sign-in">
+				<LogoutDialog>
 					<div className="px-6 mt-10">
 						<div className="flex gap-4 p-4 rounded-lg cursor-pointer hover:bg-main-orange/20">
 							<Image
@@ -58,7 +59,7 @@ const LeftSideBar = () => {
 							<p className="max-lg:hidden">Logout</p>
 						</div>
 					</div>
-				</SignOutButton>
+				</LogoutDialog>
 			</SignedIn>
 		</aside>
 	);
