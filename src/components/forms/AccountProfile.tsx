@@ -20,6 +20,7 @@ import { useUploadThing } from "@/utils/uploadthing";
 import { upsertUser } from "@/lib/actions/user.action";
 import { usePathname } from "next/navigation";
 import Loading from "../shared/Loading";
+import { toast } from "../ui/use-toast";
 
 interface Props {
 	user: {
