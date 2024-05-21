@@ -14,15 +14,16 @@ const Onboarding = async () => {
 
 	const userData = {
 		userId: user?.id!,
-		image_url: userInfo?.image_url! || user?.imageUrl || "",
+		image_url: "",
 		companyName: userInfo?.companyName || "",
 		typeOfProvider: userInfo?.typeOfProvider || "",
 		phoneNumber: userInfo?.phoneNumber || "",
 		experienceYears: userInfo?.experienceYears || "",
 		hourlyRate: userInfo?.hourlyRate || "",
 		bio: userInfo?.bio || "",
-		startTime: userInfo?.startTime || "",
-		endTime: userInfo?.endTime || "",
+		operatingDays: userInfo?.operatingDays || [],
+		startTime: userInfo?.operatingHours.startTime || "",
+		endTime: userInfo?.operatingHours.endTime || "",
 	};
 
 	return (

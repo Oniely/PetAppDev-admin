@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const timeFormat12Hour = /^(0[1-9]|1[0-2]):([0-5][0-9]) ?([AaPp][Mm])$/;
+const operatingDaysEnum = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const AvailabilitySchema = new mongoose.Schema(
 	{
@@ -52,6 +53,17 @@ const ServiceProviderSchema = new mongoose.Schema({
 	onboarded: {
 		type: Boolean,
 		default: false,
+	},
+	operatingDays: {
+		type: [String],
+		enum: operatingDaysEnum,
+		required: true,
+		validate: {
+			validator: function(array: []) {
+				return array.length > 0 && array.length <= 7;
+			},
+			message: "Operating days must be between 1 and 7 days"
+		}
 	},
 	operatingHours: {
 		type: AvailabilitySchema,

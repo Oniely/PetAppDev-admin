@@ -24,6 +24,7 @@ interface UserParams {
 	experienceYears: number;
 	hourlyRate: number;
 	onboarded: boolean;
+	operatingDays: string[];
 	startTime: string;
 	endTime: string;
 	path: string;
@@ -39,6 +40,7 @@ export async function upsertUser({
 	experienceYears,
 	hourlyRate,
 	onboarded,
+	operatingDays,
 	startTime,
 	endTime,
 	path,
@@ -48,29 +50,29 @@ export async function upsertUser({
 
 		const companyExist = await Provider.findOne({ companyName });
 
-		if (!companyExist) {
-			await Provider.findOneAndUpdate(
-				{ userId },
-				{
-					image_url,
-					phoneNumber,
-					companyName,
-					typeOfProvider,
-					bio,
-					experienceYears,
-					hourlyRate,
-					onboarded,
-					operatingHours: {
-						startTime,
-						endTime,
-					},
-				},
-				{ upsert: true }
-			);
-		} else {
+		if (companyExist && companyExist?.onboarded) {
 			return false;
 		}
 
+		await Provider.findOneAndUpdate(
+			{ userId },
+			{
+				image_url,
+				phoneNumber,
+				companyName,
+				typeOfProvider,
+				bio,
+				experienceYears,
+				hourlyRate,
+				onboarded,
+				operatingDays,
+				operatingHours: {
+					startTime,
+					endTime,
+				},
+			},
+			{ upsert: true }
+		);
 		revalidatePath(path);
 		return true;
 	} catch (error: any) {
@@ -87,6 +89,7 @@ interface UpdateUserParams {
 	bio: string;
 	experienceYears: number;
 	hourlyRate: number;
+	operatingDays: string[];
 	startTime: string;
 	endTime: string;
 	path: string;
@@ -101,6 +104,7 @@ export async function updateUser({
 	bio,
 	experienceYears,
 	hourlyRate,
+	operatingDays,
 	startTime,
 	endTime,
 	path,
@@ -114,6 +118,7 @@ export async function updateUser({
 			bio,
 			experienceYears,
 			hourlyRate,
+			operatingDays,
 			operatingHours: {
 				startTime,
 				endTime,

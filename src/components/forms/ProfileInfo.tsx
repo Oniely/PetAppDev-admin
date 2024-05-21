@@ -3,7 +3,7 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserValidation } from "@/lib/validations/user";
+import { UserValidation, operatingDaysEnum } from "@/lib/validations/user";
 import {
 	Form,
 	FormControl,
@@ -22,6 +22,7 @@ import { usePathname } from "next/navigation";
 import Loading from "../shared/Loading";
 import Image from "next/image";
 import { toast } from "../ui/use-toast";
+import { Checkbox } from "../ui/checkbox";
 
 interface Props {
 	user: {
@@ -33,6 +34,15 @@ interface Props {
 		experienceYears: string;
 		hourlyRate: string;
 		bio: string;
+		operatingDays: [
+			"Monday",
+			"Tuesday",
+			"Wednesday",
+			"Thursday",
+			"Friday",
+			"Saturday",
+			"Sunday"
+		];
 		startTime: string;
 		endTime: string;
 	};
@@ -55,6 +65,7 @@ const ProfileInfo = ({ user }: Props) => {
 			bio: user.bio || "",
 			experienceYears: parseInt(user.experienceYears) || 0,
 			hourlyRate: parseInt(user.hourlyRate) || 0,
+			operatingDays: user.operatingDays || [],
 			startTime: user.startTime || "",
 			endTime: user.endTime || "",
 		},
@@ -95,6 +106,7 @@ const ProfileInfo = ({ user }: Props) => {
 			experienceYears: values.experienceYears,
 			hourlyRate: values.hourlyRate,
 			bio: values.bio,
+			operatingDays: values.operatingDays,
 			startTime: values.startTime,
 			endTime: values.endTime,
 			path: pathname,
@@ -262,7 +274,7 @@ const ProfileInfo = ({ user }: Props) => {
 						name="startTime"
 						render={({ field }) => (
 							<FormItem className="flex flex-col gap-3 w-full">
-								<FormLabel>Start Time</FormLabel>
+								<FormLabel>Operating Start Time</FormLabel>
 								<FormControl>
 									<div className="flex items-center gap-2 relative">
 										<Input type="text" {...field} />
@@ -277,7 +289,7 @@ const ProfileInfo = ({ user }: Props) => {
 						name="endTime"
 						render={({ field }) => (
 							<FormItem className="flex flex-col gap-3 w-full">
-								<FormLabel>End Time</FormLabel>
+								<FormLabel>Operating End Time</FormLabel>
 								<FormControl>
 									<div className="flex items-center gap-2 relative">
 										<Input type="text" {...field} />
@@ -287,6 +299,49 @@ const ProfileInfo = ({ user }: Props) => {
 							</FormItem>
 						)}
 					/>
+					<FormField
+						control={form.control}
+						name="operatingDays"
+						render={({ field }) => (
+							<FormItem className="flex flex-col gap-3 w-full col-span-2">
+								<FormLabel>Operating Days</FormLabel>
+								<div className="flex items-center flex-wrap gap-4">
+									{operatingDaysEnum.map((day) => (
+										<FormField
+											key={day}
+											control={form.control}
+											name="operatingDays"
+											render={({ field }) => (
+												<FormItem key={day}>
+													<div className="flex items-center">
+														<FormControl>
+															<Checkbox
+																// prettier-ignore
+																checked={field.value?.includes(day)}
+																// prettier-ignore
+																onCheckedChange={(checked) => {
+																	return checked 
+																		? field.onChange([...field.value, day]) 
+																		: field.onChange(field.value.filter(value => value !== day));
+																}}
+																className="border-[#e7e5e4] bg-[#ffffff] scale-110"
+																color="e1e1e1"
+															/>
+														</FormControl>
+														<FormLabel className="ml-1 text-base">
+															{day}
+														</FormLabel>
+													</div>
+												</FormItem>
+											)}
+										/>
+									))}
+								</div>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+					<hr className="col-span-2" />
 					<FormField
 						control={form.control}
 						name="bio"
@@ -304,7 +359,7 @@ const ProfileInfo = ({ user }: Props) => {
 						type="submit"
 						className="bg-dark-gray hover:bg-dark-gray/80 col-span-2"
 					>
-						Continue
+						Update
 					</Button>
 				</form>
 			</Form>
