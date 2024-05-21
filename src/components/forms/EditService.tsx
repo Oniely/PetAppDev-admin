@@ -115,7 +115,6 @@ const EditService = ({ serviceId, service }: Props) => {
 
 			await UpdateService(newService);
 			toast({
-				variant: "default",
 				title: "Service updated successfully.",
 				description: `You've updated ${values.serviceName}`,
 			});

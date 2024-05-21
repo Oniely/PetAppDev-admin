@@ -33,7 +33,7 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 						<Image
 							src={service.image_url}
 							alt="Service Image"
-							className="object-cover rounded-lg"
+							className="object-contain rounded-lg"
 							draggable={false}
 							fill
 						/>
