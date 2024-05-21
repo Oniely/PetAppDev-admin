@@ -334,8 +334,7 @@ const AccountProfile = ({ user }: Props) => {
 																		? field.onChange([...field.value, day]) 
 																		: field.onChange(field.value.filter(value => value !== day));
 																}}
-																className="border-[#e7e5e4] bg-[#ffffff] scale-110"
-																color="e1e1e1"
+																className="border-[#e7e5e4] bg-[#ffffff] scale-110 data-[state=checked]:bg-[#1e1e1e]"
 															/>
 														</FormControl>
 														<FormLabel className="ml-1 text-base">
