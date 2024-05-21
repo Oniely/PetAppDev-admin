@@ -119,6 +119,10 @@ const ProfileInfo = ({ user }: Props) => {
 					variant: "destructive",
 				});
 			} else {
+				toast({
+					title: "Profile Updated!",
+					description: `You have successfully updated your profile.`,
+				});
 			}
 		} catch (error: any) {
 			toast({
