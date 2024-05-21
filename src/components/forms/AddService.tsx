@@ -268,7 +268,7 @@ const AddService = () => {
 							Cancel
 						</Button>
 						<Button type="submit" className="flex-1 py-3" size="lg">
-							Update Service
+							Create Service
 						</Button>
 					</div>
 				</form>
