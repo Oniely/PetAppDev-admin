@@ -37,7 +37,7 @@ const TopBar = async () => {
 					width={35}
 					height={35}
 				/>
-				<p className="max-md:hidden ">PetCompanion</p>
+				<p className="max-md:hidden ">{userData.companyName}</p>
 			</Link>
 
 			<div className="flexCenter gap-2">
