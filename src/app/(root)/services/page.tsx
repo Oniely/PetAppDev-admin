@@ -2,16 +2,36 @@ import ServiceCard from "@/components/cards/ServiceCard";
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import SearchBar from "@/components/shared/SearchBar";
 import { Button } from "@/components/ui/button";
-import { fetchServices } from "@/lib/actions/service.action";
+import { fetchServicesPaginate } from "@/lib/actions/service.action";
 import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 
-const Services = async () => {
+import {
+	Pagination,
+	PaginationContent,
+	PaginationEllipsis,
+	PaginationItem,
+	PaginationLink,
+	PaginationNext,
+	PaginationPrevious,
+} from "@/components/ui/pagination";
+import { array } from "zod";
+
+interface Props {
+	searchParams: { [key: string]: string | string[] | undefined };
+}
+
+const Services = async ({ searchParams }: Props) => {
 	const user = await currentUser();
 	const userData = await fetchUser(user?.id!);
 
-	const services = await fetchServices(userData._id);
+	const pageNumber = searchParams["page"];
+
+	const { services, isNext, nextCount } = await fetchServicesPaginate({
+		providerId: userData._id,
+		pageNumber: parseInt(pageNumber),
+	});
 
 	if (!services) {
 		return;
@@ -61,6 +81,21 @@ const Services = async () => {
 					</div>
 				)}
 			</section>
+
+			<Pagination>
+				<PaginationContent>
+					<PaginationItem>
+						<PaginationPrevious href="#" />
+					</PaginationItem>
+					{/* {array} */}
+					<PaginationItem>
+						<PaginationEllipsis />
+					</PaginationItem>
+					<PaginationItem>
+						<PaginationNext href="#" />
+					</PaginationItem>
+				</PaginationContent>
+			</Pagination>
 		</>
 	);
 };

@@ -82,7 +82,9 @@ export const fetchServices = async (providerId: string) => {
 	try {
 		connectDB();
 
-		const services = await Service.find({ provider: providerId }).sort({ status: 'desc' }).exec();
+		const services = await Service.find({ provider: providerId })
+			.sort({ status: "desc" })
+			.exec();
 
 		return services;
 	} catch (error: any) {
@@ -90,13 +92,52 @@ export const fetchServices = async (providerId: string) => {
 			`An error has occur while fetching services: ${error.message}`
 		);
 	}
-}
+};
+
+export const fetchServicesPaginate = async ({
+	providerId,
+	pageNumber = 1,
+	pageSize = 1,
+}: {
+	providerId: string;
+	pageNumber?: number;
+	pageSize?: number;
+}) => {
+	try {
+		connectDB();
+
+		const skipAmount = (pageNumber - 1) * pageSize;
+
+		const services = await Service.find({ provider: providerId })
+			.sort({ status: "desc" })
+			.skip(skipAmount)
+			.limit(pageSize)
+			.exec();
+
+		const totalServicesCount = await Service.countDocuments({
+			provider: providerId,
+		});
+
+		const isNext = totalServicesCount > skipAmount + services.length;
+		const nextCount = totalServicesCount / skipAmount;
+
+		// todo make nextCount an array to make it easier for diaplying pagination number
+
+		return { services, isNext, nextCount };
+	} catch (error: any) {
+		throw new Error(
+			`An error has occur while fetching services: ${error.message}`
+		);
+	}
+};
 
 export const fetchServicesByUserId = async (userId: string) => {
 	try {
 		connectDB();
 
-		const services = await Provider.findOne({ userId }).populate("servicesOffered");
+		const services = await Provider.findOne({ userId }).populate(
+			"servicesOffered"
+		);
 
 		return services.servicesOffered;
 	} catch (error: any) {
@@ -189,6 +230,8 @@ export const deleteService = async (serviceId: string) => {
 
 		return result ? true : false;
 	} catch (error: any) {
-		throw new Error(`An error has occur while deleting service: ${error.message}`);
+		throw new Error(
+			`An error has occur while deleting service: ${error.message}`
+		);
 	}
-}
+};

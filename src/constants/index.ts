@@ -6,7 +6,7 @@ export const NAV_LINKS = [
     },
     {
         img: "/images/services.svg",
-        route: "/services",
+        route: "/services?page=1",
         label: "Manage Service"
     },
     {
