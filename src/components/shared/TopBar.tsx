@@ -40,10 +40,10 @@ const TopBar = async () => {
 				<p className="max-md:hidden ">{userData.companyName}</p>
 			</Link>
 
-			<div className="flexCenter gap-2">
+			<div className="flexCenter gap-1">
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
-						<Button variant="link">
+						<Button variant="link" size="icon">
 							<Image
 								src="/images/notification.svg"
 								alt="notification"
@@ -64,14 +64,16 @@ const TopBar = async () => {
 				{/* ------------------------------------------------------ */}
 				<Dialog>
 					<DropdownMenu>
-						<DropdownMenuTrigger>
-							<Image
-								src={userData.image_url}
-								alt="Profile Photo"
-								width={30}
-								height={30}
-								className="rounded-full aspect-square border border-dark-gray"
-							/>
+						<DropdownMenuTrigger asChild>
+							<Button variant="link" size="icon">
+								<Image
+									src={userData.image_url}
+									alt="Profile Photo"
+									width={25}
+									height={25}
+									className="rounded-full aspect-square border border-dark-gray"
+								/>
+							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent>
 							<DropdownMenuLabel>Profile Menu</DropdownMenuLabel>
