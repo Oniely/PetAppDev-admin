@@ -18,7 +18,7 @@ const Services = async ({ searchParams }: Props) => {
 
 	const pageNumber = searchParams["page"];
 
-	const { services, isNext, nextCount } = await fetchServicesPaginate({
+	const { services, isNext } = await fetchServicesPaginate({
 		providerId: userData._id,
 		serviceName: "",
 		pageNumber: parseInt(pageNumber!),

@@ -109,7 +109,7 @@ export const fetchServicesPaginate = async ({
 		connectDB();
 
 		if (pageNumber < 1) {
-			return { services: [], isNext: false, nextCount: 0 };
+			return { services: [], isNext: false };
 		}
 
 		let query: any = { provider: providerId };
@@ -129,9 +129,8 @@ export const fetchServicesPaginate = async ({
 		const totalServicesCount = await Service.countDocuments(query);
 
 		const isNext = totalServicesCount > skipAmount + services.length;
-		const nextCount = totalServicesCount / skipAmount;
 
-		return { services, isNext, nextCount };
+		return { services, isNext };
 	} catch (error: any) {
 		throw new Error(
 			`An error has occur while fetching services: ${error.message}`
