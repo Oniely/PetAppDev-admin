@@ -3,21 +3,23 @@
 import { Search } from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-interface Props {
-	onSearch?: (input: string) => void;
-}
-
-const SearchBar = ({ onSearch }: Props) => {
+const SearchBar = () => {
 	const [input, setInput] = useState("");
+	const router = useRouter();
 
 	const handleSubmit = (e: any) => {
 		e.preventDefault();
-		onSearch!(input);
-	}
+
+		router.push(`/services?page=1&search=${input}`);
+	};
 
 	return (
-		<form onSubmit={handleSubmit} className="w-full border rounded-md flex items-center pl-3 mb-10 transition-all ease-in relative overflow-hidden bg-white">
+		<form
+			onSubmit={handleSubmit}
+			className="w-full border rounded-md flex items-center pl-3 mb-10 transition-all ease-in relative overflow-hidden bg-white"
+		>
 			<Search
 				size={20}
 				color="#807a84"
@@ -31,8 +33,9 @@ const SearchBar = ({ onSearch }: Props) => {
 			/>
 			<Button
 				type="submit"
-				className="invisible scale-0 peer-focus-visible:visible peer-focus-visible:scale-100 transition-all absolute right-0 rounded-md"
+				className="invisible scale-50 peer-focus-visible:visible peer-focus-visible:scale-100 transition-all absolute right-0 rounded-md"
 				variant="ghost"
+				onMouseDown={handleSubmit}
 			>
 				Search
 			</Button>

@@ -23,7 +23,7 @@ const LogoutDialog = ({ children, asChild = false }: Props) => {
 				<DialogHeader>
 					<DialogTitle>Are you sure?</DialogTitle>
 					<DialogDescription>
-						Please confirm your action to logout
+						Please confirm your action to logout.
 					</DialogDescription>
 				</DialogHeader>
 				<hr />

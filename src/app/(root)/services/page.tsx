@@ -17,12 +17,13 @@ const Services = async ({ searchParams }: Props) => {
 	const userData = await fetchUser(user?.id!);
 
 	const pageNumber = searchParams["page"];
+	const searchTerm = searchParams["search"] || "";
 
 	const { services, isNext } = await fetchServicesPaginate({
 		providerId: userData._id,
-		serviceName: "",
+		serviceName: searchTerm,
 		pageNumber: parseInt(pageNumber!),
-		pageSize: 2
+		pageSize: 3,
 	});
 
 	if (!services) {
@@ -47,7 +48,7 @@ const Services = async ({ searchParams }: Props) => {
 					<SearchBar />
 				</div>
 			)}
-		<section className="h-full">
+			<section className="h-full">
 				{services.length > 0 && (
 					<div className="grid grid-cols-3 max-sm:grid-cols-2 gap-3">
 						{services.map((service: any) => (
@@ -68,7 +69,7 @@ const Services = async ({ searchParams }: Props) => {
 					<div className="w-full h-[60vh] flex flex-col items-center justify-center gap-3">
 						<p>You have no more services.</p>
 						<Link href="/create-service">
-							<Button>Add New Service</Button>
+							<Button>Add a New Service</Button>
 						</Link>
 					</div>
 				)}
