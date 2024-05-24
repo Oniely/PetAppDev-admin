@@ -96,10 +96,12 @@ export const fetchServices = async (providerId: string) => {
 
 export const fetchServicesPaginate = async ({
 	providerId,
+	serviceName = "",
 	pageNumber = 1,
 	pageSize = 6,
 }: {
 	providerId: string;
+	serviceName?: string;
 	pageNumber?: number;
 	pageSize?: number;
 }) => {
@@ -110,17 +112,21 @@ export const fetchServicesPaginate = async ({
 			return { services: [], isNext: false, nextCount: 0 };
 		}
 
+		let query: any = { provider: providerId };
+
+		if (serviceName) {
+			query.serviceName = { $regex: serviceName, $options: "i" };
+		}
+
 		const skipAmount = (pageNumber - 1) * pageSize;
 
-		const services = await Service.find({ provider: providerId })
+		const services = await Service.find(query)
 			.sort({ status: "desc" })
 			.skip(skipAmount)
 			.limit(pageSize)
 			.exec();
 
-		const totalServicesCount = await Service.countDocuments({
-			provider: providerId,
-		});
+		const totalServicesCount = await Service.countDocuments(query);
 
 		const isNext = totalServicesCount > skipAmount + services.length;
 		const nextCount = totalServicesCount / skipAmount;

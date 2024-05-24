@@ -20,7 +20,9 @@ const Services = async ({ searchParams }: Props) => {
 
 	const { services, isNext, nextCount } = await fetchServicesPaginate({
 		providerId: userData._id,
+		serviceName: "",
 		pageNumber: parseInt(pageNumber!),
+		pageSize: 2
 	});
 
 	if (!services) {
@@ -45,7 +47,7 @@ const Services = async ({ searchParams }: Props) => {
 					<SearchBar />
 				</div>
 			)}
-			<section className="">
+		<section className="h-full">
 				{services.length > 0 && (
 					<div className="grid grid-cols-3 max-sm:grid-cols-2 gap-3">
 						{services.map((service: any) => (

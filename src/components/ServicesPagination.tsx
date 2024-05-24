@@ -20,7 +20,7 @@ const ServicesPagination = ({
 	servicesCount,
 }: Props) => {
 	return (
-		<Pagination>
+		<Pagination className="mt-8">
 			<PaginationContent>
 				{currentCount > 1 && servicesCount >= 1 && (
 					<PaginationItem>
