@@ -97,7 +97,7 @@ export const fetchServices = async (providerId: string) => {
 export const fetchServicesPaginate = async ({
 	providerId,
 	pageNumber = 1,
-	pageSize = 1,
+	pageSize = 6,
 }: {
 	providerId: string;
 	pageNumber?: number;
@@ -105,6 +105,10 @@ export const fetchServicesPaginate = async ({
 }) => {
 	try {
 		connectDB();
+
+		if (pageNumber < 1) {
+			return { services: [], isNext: false, nextCount: 0 };
+		}
 
 		const skipAmount = (pageNumber - 1) * pageSize;
 
@@ -120,8 +124,6 @@ export const fetchServicesPaginate = async ({
 
 		const isNext = totalServicesCount > skipAmount + services.length;
 		const nextCount = totalServicesCount / skipAmount;
-
-		// todo make nextCount an array to make it easier for diaplying pagination number
 
 		return { services, isNext, nextCount };
 	} catch (error: any) {

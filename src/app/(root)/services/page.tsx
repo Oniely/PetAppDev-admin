@@ -1,3 +1,4 @@
+import ServicesPagination from "@/components/ServicesPagination";
 import ServiceCard from "@/components/cards/ServiceCard";
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import SearchBar from "@/components/shared/SearchBar";
@@ -7,19 +8,8 @@ import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 
-import {
-	Pagination,
-	PaginationContent,
-	PaginationEllipsis,
-	PaginationItem,
-	PaginationLink,
-	PaginationNext,
-	PaginationPrevious,
-} from "@/components/ui/pagination";
-import { array } from "zod";
-
 interface Props {
-	searchParams: { [key: string]: string | string[] | undefined };
+	searchParams: { [key: string]: string | undefined };
 }
 
 const Services = async ({ searchParams }: Props) => {
@@ -30,7 +20,7 @@ const Services = async ({ searchParams }: Props) => {
 
 	const { services, isNext, nextCount } = await fetchServicesPaginate({
 		providerId: userData._id,
-		pageNumber: parseInt(pageNumber),
+		pageNumber: parseInt(pageNumber!),
 	});
 
 	if (!services) {
@@ -74,28 +64,19 @@ const Services = async ({ searchParams }: Props) => {
 
 				{services.length < 1 && (
 					<div className="w-full h-[60vh] flex flex-col items-center justify-center gap-3">
-						<p>You have no added services yet.</p>
+						<p>You have no more services.</p>
 						<Link href="/create-service">
 							<Button>Add New Service</Button>
 						</Link>
 					</div>
 				)}
 			</section>
-
-			<Pagination>
-				<PaginationContent>
-					<PaginationItem>
-						<PaginationPrevious href="#" />
-					</PaginationItem>
-					{/* {array} */}
-					<PaginationItem>
-						<PaginationEllipsis />
-					</PaginationItem>
-					<PaginationItem>
-						<PaginationNext href="#" />
-					</PaginationItem>
-				</PaginationContent>
-			</Pagination>
+			<ServicesPagination
+				href="/services"
+				currentCount={Number(pageNumber)!}
+				isNext={isNext}
+				servicesCount={services.length}
+			/>
 		</>
 	);
 };
