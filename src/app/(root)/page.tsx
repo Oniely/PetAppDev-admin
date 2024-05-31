@@ -1,6 +1,7 @@
 import DashboardCard from "@/components/cards/DashboardCard";
 import UpcomingCard from "@/components/cards/UpcomingCard";
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
+import { fetchUpcomingAppointments, getAppointmentsCount } from "@/lib/actions/appointment.action";
 import { fetchServices } from "@/lib/actions/service.action";
 import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs/server";
@@ -17,6 +18,9 @@ const Home = async () => {
 
 	const services = await fetchServices(userData._id);
 	const activeServices = services.filter((service: any) => service.status);
+
+	const appointments = await fetchUpcomingAppointments(userData._id!) || [];
+	const appointmentsCount = await getAppointmentsCount(userData._id!);
 
 	return (
 		<>
@@ -35,8 +39,8 @@ const Home = async () => {
 						className="bg-[#D6EDFF]"
 						title="Appointments"
 						image_url="/images/calendar.svg"
-						data="0"
-						href="/services"
+						data={`${appointmentsCount}`}
+						href="/appointment"
 					/>
 					<DashboardCard
 						className="bg-[#ACD7EC]"
@@ -64,37 +68,23 @@ const Home = async () => {
 					<div className="mb-4 flexBetween">
 						<h2 className="font-semibold">Upcoming appointments</h2>
 						<Link href="/" className="flex items-start gap-[2px]">
-							See all <span className="text-sm">(14)</span>
+							See all <span className="text-sm">({appointmentsCount})</span>
 						</Link>
 					</div>
 					<div className="grid grid-cols-3 gap-4">
-						<UpcomingCard
-							name="Service Name"
-							type="Onboarding"
-							date="Nov 09 2024"
-							time="03:12"
-							customer="Oniel Gencaya"
-							status="Pending"
-							href="/"
-						/>
-						<UpcomingCard
-							name="Service Name"
-							type="Pet Training"
-							date="Nov 09 2024"
-							time="03:12"
-							customer="Oniel Gencaya"
-							status="Confirmed"
-							href="/"
-						/>
-						<UpcomingCard
-							name="Service Name"
-							type="Grooming"
-							date="Nov 09 2024"
-							time="03:12"
-							customer="Oniel Gencaya"
-							status="Confirmed"
-							href="/"
-						/>
+						{appointments.length > 0 &&
+							appointments.map((appointment: any) => (
+								<UpcomingCard
+									key={appointment._id}
+									name={appointment.service.serviceName}
+									type={appointment.service.typeOfService.split('_').join(" ")}
+									date={appointment.date}
+									time={appointment.time}
+									customer="Oniel Gencaya"
+									status={appointment.status}
+									href={`/appointment/${appointment._id}`}
+								/>
+							))}
 					</div>
 				</div>
 			</section>

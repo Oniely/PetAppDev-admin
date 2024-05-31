@@ -87,6 +87,9 @@ const TopBar = async () => {
 								<Link href={`/inbox`}>Inbox</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
+								<Link href={`/appointment`}>Appointments</Link>
+							</DropdownMenuItem>
+							<DropdownMenuItem>
 								<DialogTrigger>
 									<p>Logout</p>
 								</DialogTrigger>
