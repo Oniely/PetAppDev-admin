@@ -71,7 +71,7 @@ const TopBar = async () => {
 									alt="Profile Photo"
 									width={25}
 									height={25}
-									className="rounded-full aspect-square border border-dark-gray"
+									className="object-cover object-center rounded-full aspect-square border border-dark-gray"
 								/>
 							</Button>
 						</DropdownMenuTrigger>
@@ -84,10 +84,10 @@ const TopBar = async () => {
 								</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
-								<Link href={`/inbox`}>Inbox</Link>
+								<Link href={`/appointment`}>Appointments</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
-								<Link href={`/appointment`}>Appointments</Link>
+								<Link href={`/inbox`}>Inbox</Link>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
 								<DialogTrigger>

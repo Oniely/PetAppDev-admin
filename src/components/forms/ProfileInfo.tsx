@@ -167,6 +167,7 @@ const ProfileInfo = ({ user }: Props) => {
 												<Image
 													src={field.value}
 													alt="photo"
+													className="object-cover object-center aspect-square"
 													fill
 												/>
 												<div className="w-full h-[2rem] bg-black/70 absolute bottom-0 grid place-content-center">

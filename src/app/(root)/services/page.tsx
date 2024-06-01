@@ -22,7 +22,7 @@ const Services = async ({ searchParams }: Props) => {
 	const { services, isNext } = await fetchServicesPaginate({
 		providerId: userData._id,
 		serviceName: searchTerm,
-		pageNumber: parseInt(pageNumber!),
+		pageNumber: parseInt(pageNumber!) || 1,
 		pageSize: 3,
 	});
 
@@ -76,7 +76,7 @@ const Services = async ({ searchParams }: Props) => {
 			</section>
 			<ServicesPagination
 				href="/services"
-				currentCount={Number(pageNumber)!}
+				currentCount={Number(pageNumber)! || 1}
 				isNext={isNext}
 				servicesCount={services.length}
 			/>

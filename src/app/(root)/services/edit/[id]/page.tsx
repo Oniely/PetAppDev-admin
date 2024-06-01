@@ -22,7 +22,7 @@ const ServiceEdit = async ({ params }: { params: { id: string } }) => {
 		},
 		{
 			name: "Edit Service",
-			href: "/edit"
+			href: "#"
 		},
 	];
 

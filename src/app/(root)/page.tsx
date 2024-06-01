@@ -1,7 +1,10 @@
 import DashboardCard from "@/components/cards/DashboardCard";
 import UpcomingCard from "@/components/cards/UpcomingCard";
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
-import { fetchUpcomingAppointments, getAppointmentsCount } from "@/lib/actions/appointment.action";
+import {
+	fetchUpcomingAppointments,
+	getAppointmentsCount,
+} from "@/lib/actions/appointment.action";
 import { fetchServices } from "@/lib/actions/service.action";
 import { fetchUser } from "@/lib/actions/user.action";
 import { currentUser } from "@clerk/nextjs/server";
@@ -19,7 +22,7 @@ const Home = async () => {
 	const services = await fetchServices(userData._id);
 	const activeServices = services.filter((service: any) => service.status);
 
-	const appointments = await fetchUpcomingAppointments(userData._id!) || [];
+	const appointments = await fetchUpcomingAppointments({ providerId: userData._id! });
 	const appointmentsCount = await getAppointmentsCount(userData._id!);
 
 	return (
@@ -67,8 +70,11 @@ const Home = async () => {
 				<div>
 					<div className="mb-4 flexBetween">
 						<h2 className="font-semibold">Upcoming appointments</h2>
-						<Link href="/" className="flex items-start gap-[2px]">
-							See all <span className="text-sm">({appointmentsCount})</span>
+						<Link href="/appointment" className="flex items-start gap-[2px]">
+							See all{" "}
+							<span className="text-sm">
+								({appointmentsCount})
+							</span>
 						</Link>
 					</div>
 					<div className="grid grid-cols-3 gap-4">
@@ -77,14 +83,23 @@ const Home = async () => {
 								<UpcomingCard
 									key={appointment._id}
 									name={appointment.service.serviceName}
-									type={appointment.service.typeOfService.split('_').join(" ")}
+									type={appointment.service.typeOfService
+										.split("_")
+										.join(" ")}
 									date={appointment.date}
 									time={appointment.time}
-									customer="Oniel Gencaya"
+									customer={`${appointment.petOwner.fname.split(' ')[0]} ${appointment.petOwner.lname}`}
 									status={appointment.status}
 									href={`/appointment/${appointment._id}`}
 								/>
 							))}
+
+						{appointments.length < 1 && (
+							<div className="col-span-3 h-[11rem] flexCenter flex-col">
+								<p className="text-sm">You have no upcoming appointments!</p>
+								<p className="text-sm">You can relax and enjoy the day!</p>
+							</div>
+						)}
 					</div>
 				</div>
 			</section>
