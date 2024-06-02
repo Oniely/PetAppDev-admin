@@ -22,7 +22,7 @@ const Home = async () => {
 	const services = await fetchServices(userData._id);
 	const activeServices = services.filter((service: any) => service.status);
 
-	const appointments = await fetchUpcomingAppointments({ providerId: userData._id! });
+	const appointments = await fetchUpcomingAppointments({ providerId: userData._id!, status: ["Pending", "Confirmed"] });
 	const appointmentsCount = await getAppointmentsCount(userData._id!);
 
 	return (

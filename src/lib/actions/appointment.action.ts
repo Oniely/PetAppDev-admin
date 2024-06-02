@@ -1,17 +1,56 @@
 "use server";
 
+import { string } from "zod";
 import { Appointment } from "../models/appointment.model";
 import { PetOwner } from "../models/owner.model";
 import { connectDB } from "../mongoose";
+import { revalidatePath } from "next/cache";
 
 export const fetchAppointments = async (providerId: string) => {
 	try {
 		connectDB();
 
-		const appointments = await Appointment.find({ provider: providerId })
+		const appointments = await Appointment.find({
+			provider: providerId,
+			status: { $nin: ["Cancelled", "Completed", "Reschedule"] },
+		})
 			.populate("service")
 			.populate("petOwner")
-			.sort({ date: "asc", time: "asc" })
+			.sort({ date: "desc", time: "asc" })
+			.exec();
+
+		if (!appointments) {
+			return [];
+		}
+
+		return appointments;
+	} catch (error: any) {
+		throw new Error(
+			`Something went wrong while fetching appointments: ${error.message}`
+		);
+	}
+};
+
+export const filterAppointment = async ({
+	providerId,
+	status,
+}: {
+	providerId: string;
+	status: string | null;
+}) => {
+	try {
+		connectDB();
+
+		let query: any = { provider: providerId };
+
+		if (status !== null && status !== "All") {
+			query.status = status;
+		}
+
+		const appointments = await Appointment.find(query)
+			.populate("service")
+			.populate("petOwner")
+			.sort({ date: "desc", time: "asc" })
 			.exec();
 
 		if (!appointments) {
@@ -30,7 +69,10 @@ export const getAppointmentsCount = async (providerId: string) => {
 	try {
 		connectDB();
 
-		return await Appointment.countDocuments({ provider: providerId });
+		return await Appointment.countDocuments({
+			provider: providerId,
+			status: { $nin: ["Cancelled", "Completed", "Reschedule"] },
+		});
 	} catch (error: any) {
 		throw new Error(
 			`Something went wrong while fetching appointments: ${error.message}`
@@ -43,7 +85,7 @@ export const fetchUpcomingAppointments = async ({
 	status = "",
 }: {
 	providerId: string;
-	status?: string;
+	status?: string | string[];
 }) => {
 	try {
 		connectDB();
@@ -51,14 +93,14 @@ export const fetchUpcomingAppointments = async ({
 		let query: any = { provider: providerId };
 
 		if (status) {
-			query.status = status;
+			query.status = { $in: status };
 		}
 
 		const appointments = await Appointment.find(query)
 			.limit(3)
 			.populate("service")
 			.populate("petOwner")
-			.sort({ date: "asc", time: "asc" })
+			.sort({ date: "desc", time: "asc" })
 			.exec();
 
 		if (!appointments) {
@@ -80,7 +122,7 @@ export const getAppointment = async (appointmentId: string) => {
 		const appointment = await Appointment.findOne({ _id: appointmentId })
 			.populate("service")
 			.populate("petOwner")
-			.populate('pet')
+			.populate("pet")
 			.exec();
 
 		if (!appointment) {
@@ -91,6 +133,38 @@ export const getAppointment = async (appointmentId: string) => {
 	} catch (error: any) {
 		throw new Error(
 			`Something went wrong while fetching an appointments: ${error.message}`
+		);
+	}
+};
+
+export const updateAppointmentStatus = async ({
+	id,
+	newStatus,
+	path,
+}: {
+	id: string;
+	newStatus: string;
+	path: string;
+}) => {
+	try {
+		connectDB();
+
+		const appointment = await Appointment.findOneAndUpdate(
+			{ _id: id },
+			{ status: newStatus },
+			{ new: true }
+		);
+
+		revalidatePath(path);
+
+		if (!appointment) {
+			return false;
+		} else {
+			return true;
+		}
+	} catch (error: any) {
+		throw new Error(
+			`Something went wrong while updating appointment status: ${error.message}`
 		);
 	}
 };

@@ -1,11 +1,9 @@
-import StatusDialog from "@/components/forms/StatusDialog";
+import AppointmentStatusDialog from "@/components/shared/AppointmentStatusDialog";
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { getAppointment } from "@/lib/actions/appointment.action";
 import { formatDateTime } from "@/utils/formatter";
 import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
@@ -27,6 +25,19 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 	];
 
 	const datetime = formatDateTime(appointment.date, appointment.time);
+
+	const leftStatus =
+		appointment.status === "Pending"
+			? "Confirmed"
+			: appointment.status === "Confirmed"
+			? "Completed"
+			: "Done";
+	const rightStatus =
+		appointment.status === "Pending"
+			? "Reschedule"
+			: appointment.status === "Confirmed"
+			? "Canceled"
+			: "Done";
 
 	return (
 		<>
@@ -60,8 +71,10 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 									className={`${
 										appointment.status === "Pending"
 											? "bg-yellow-500"
+											: appointment.status === "Cancelled"
+											? "bg-red-500"
 											: "bg-green-500"
-									} absolute top-0 -right-2 w-2 h-2 rounded-full animate-pulse`}
+									} absolute top-0 -right-2.5 w-2 h-2 rounded-full animate-pulse`}
 								></div>
 							</div>
 						</div>
@@ -98,11 +111,34 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 						</p>
 					</div>
 					<div className="flex items-center gap-3">
-						<Button className="w-full">Confirm</Button>
+						{appointment.status !== "Reschedule" &&
+							appointment.status !== "Done" &&
+							appointment.status !== "Completed" && (
+								<>
+									<AppointmentStatusDialog
+										id={params.id}
+										status={leftStatus}
+										asChild
+									>
+										<Button className="w-full">
+											{leftStatus}
+										</Button>
+									</AppointmentStatusDialog>
 
-						<Button className="w-full" variant="outline">
-							Cancel
-						</Button>
+									<AppointmentStatusDialog
+										id={params.id}
+										status={rightStatus}
+										asChild
+									>
+										<Button
+											className="w-full"
+											variant="outline"
+										>
+											{rightStatus}
+										</Button>
+									</AppointmentStatusDialog>
+								</>
+							)}
 					</div>
 				</div>
 			</section>
@@ -131,7 +167,7 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 						<p className="text-neutral-700 font-light">
 							Contact Number:{" "}
 							<span className="font-medium">
-								{appointment.petOwner.phoneNumber}
+								{appointment.petOwner.phoneNumber && "None"}
 							</span>
 						</p>
 						<p className="text-neutral-700 font-light">
@@ -145,6 +181,15 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 							<span className="font-medium">
 								{appointment.pet.species} -{" "}
 								{appointment.pet.breed}
+							</span>
+						</p>
+						<p className="text-neutral-700 font-light">
+							Pet Age:{" "}
+							<span className="font-medium">
+								{appointment.pet.age}{" "}
+								{appointment.pet.age > 1
+									? "years old"
+									: "year old"}
 							</span>
 						</p>
 					</div>
