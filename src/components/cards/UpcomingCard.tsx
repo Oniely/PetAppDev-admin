@@ -7,23 +7,22 @@ interface Props {
 	date: string;
 	time: string;
 	customer: string;
-	status: "Pending" | "Confirmed";
+	status: "Pending" | "Confirmed" | "Completed" | "Canceled" | "Reschedule";
 	href: string;
 }
 
 const UpcomingCard = ({ name, type, date, time, customer, status, href }: Props) => {
 	const datetime = formatDateTime(date, time);
 
+	const statusColor = ["Confirmed", "Completed"].includes(status) ? "bg-green-400" : "bg-main-orange";
+	const borderColor = ["Confirmed", "Completed"].includes(status) ? "border-l-green-400" : "border-l-main-orange";
+
 	return (
 		<Link href={href}>
 			<div className="bg-white h-[12rem] rounded-xl shadow-md p-4 flex flex-col justify-between overflow-hidden">
 				<div className="space-y-3">
 					<div
-						className={`px-2 border-l-2 max-sm:px-1 ${
-							status === "Confirmed"
-								? "border-l-green-400"
-								: "border-l-main-orange"
-						}`}
+						className={`px-2 border-l-2 max-sm:px-1 ${borderColor}`}
 					>
 						<h1 className="max-md:text-lg text-2xl font-semibold truncate w-[90%]">
 							{name}
@@ -44,11 +43,7 @@ const UpcomingCard = ({ name, type, date, time, customer, status, href }: Props)
 						{customer}
 					</div>
 					<div
-						className={`px-3 py-1 text-xs font-medium text-center rounded-full ${
-							status === "Confirmed"
-								? "bg-green-400"
-								: "bg-main-orange"
-						}`}
+						className={`px-3 py-1 text-xs font-medium text-center rounded-full ${statusColor}`}
 					>
 						{status}
 					</div>

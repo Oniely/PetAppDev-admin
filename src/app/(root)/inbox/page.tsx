@@ -14,7 +14,9 @@ const Inbox = () => {
 				<h1 className="head-text">Inbox</h1>
 				<BreadCrumbs crumbs={breadCrumbs} />
 			</header>
-			<section>Inbox</section>
+			<section className="flex flex-col gap-8">
+				Inbox
+			</section>
 		</>
 	);
 };

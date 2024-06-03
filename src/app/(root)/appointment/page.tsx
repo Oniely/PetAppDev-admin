@@ -67,9 +67,8 @@ const Appointments = async ({ searchParams }: Props) => {
 										.join(" ")}
 									date={appointment.date}
 									time={appointment.time}
-									customer={`${
-										appointment.petOwner.fname.split(" ")[0]
-									} ${appointment.petOwner.lname}`}
+									customer={`${appointment.petOwner.fname.split(" ")[0]
+										} ${appointment.petOwner.lname}`}
 									status={appointment.status}
 									href={`/appointment/${appointment._id}`}
 								/>
@@ -100,9 +99,8 @@ const Appointments = async ({ searchParams }: Props) => {
 										.join(" ")}
 									date={appointment.date}
 									time={appointment.time}
-									customer={`${
-										appointment.petOwner.fname.split(" ")[0]
-									} ${appointment.petOwner.lname}`}
+									customer={`${appointment.petOwner.fname.split(" ")[0]
+										} ${appointment.petOwner.lname}`}
 									status={appointment.status}
 									href={`/appointment/${appointment._id}`}
 								/>
@@ -110,7 +108,7 @@ const Appointments = async ({ searchParams }: Props) => {
 
 						{appointments.length < 1 && (
 							<div className="col-span-3 h-[10rem] flexCenter">
-								<p>No appointments.</p>
+								<p>No {status !== 'All' && status} Appointments.</p>
 							</div>
 						)}
 					</div>
