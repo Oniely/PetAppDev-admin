@@ -66,7 +66,7 @@ const NotificationCard = ({ href, currentStatus, message, serviceName, client_im
 			<div className="flex items-center justify-between gap-8 py-4 border-t bg-[#f1f1f1] hover:bg-[#f5f5f5] pl-2 pr-14">
 				<div className="flex items-center">
 					<status.icon className="mr-2 w-5 h-5 shrink-0" />
-					<p className="md:truncate">
+					<p className="md:truncate max-w-[22rem]">
 						{message}
 					</p>
 				</div>
@@ -82,6 +82,7 @@ const NotificationCard = ({ href, currentStatus, message, serviceName, client_im
 							width={25}
 							height={25}
 							className="object-cover object-center rounded-full aspect-square"
+							priority
 						/>
 						<p className="md:truncate">{client_name}</p>
 					</div>

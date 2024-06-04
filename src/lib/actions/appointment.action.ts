@@ -160,7 +160,10 @@ export const updateAppointmentStatus = async ({
 			{ appointment: appointment._id },
 			{
 				status: newStatus,
-				message: `Your appointment status is now ${newStatus}`,
+				ownerMessage: `Your Appointment status is now ${newStatus}!`,
+				providerMessage: `Appointment has now been ${
+					newStatus !== "Reschedule" ? newStatus : "Rescheduled"
+				}!`,
 			},
 			{ new: true }
 		).exec();

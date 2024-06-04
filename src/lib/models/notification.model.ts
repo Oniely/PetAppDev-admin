@@ -10,7 +10,11 @@ const NotificationSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	message: {
+	ownerMessage: {
+		type: String,
+		required: true
+	},
+	providerMessage: {
 		type: String,
 		required: true
 	},

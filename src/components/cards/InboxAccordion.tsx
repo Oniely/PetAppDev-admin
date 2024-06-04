@@ -32,29 +32,75 @@ const InboxAccordion = ({ todayNotif, yesterdayNotif, otherNotif }: Props) => {
 							todayNotif.map((notif, idx) => (
 								<NotificationCard
 									key={idx}
-									href={`/appointment`}
-									message={notif.message}
+									href={`/appointment/${notif.appointment._id}`}
+									message={notif.providerMessage}
 									currentStatus={notif.status}
-									serviceName={notif.appointment.service.serviceName}
-									client_image_url={notif.notifier.image_url}
+									serviceName={
+										notif.appointment.service.serviceName
+									}
+								client_image_url={notif.notifier.image_url}
 									client_name={`${notif.notifier.fname} ${notif.notifier.lname}`}
 									date="March 14, 2024"
 								/>
 							))}
+
+						{todayNotif.length < 1 && (
+							<div className="flexCenter py-4">
+								<p>No notifications here.</p>
+							</div>
+						)}
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="item-2">
 					<AccordionTrigger>Yesterday</AccordionTrigger>
 					<AccordionContent>
-						Yes. It comes with default styles that matches the other
-						components&apos; aesthetic.
+						{yesterdayNotif.length > 0 &&
+							yesterdayNotif.map((notif, idx) => (
+								<NotificationCard
+									key={idx}
+									href={`/appointment/${notif.appointment._id}`}
+									message={notif.message}
+									currentStatus={notif.status}
+									serviceName={
+										notif.appointment.service.serviceName
+									}
+									client_image_url={notif.notifier.image_url}
+									client_name={`${notif.notifier.fname} ${notif.notifier.lname}`}
+									date="March 14, 2024"
+								/>
+							))}
+
+						{yesterdayNotif.length < 1 && (
+							<div className="flexCenter py-4">
+								<p>No notifications here.</p>
+							</div>
+						)}
 					</AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="item-3">
 					<AccordionTrigger>Other Day</AccordionTrigger>
 					<AccordionContent>
-						Yes. It&apos;s animated by default, but you can disable
-						it if you prefer.
+						{otherNotif.length > 0 &&
+							otherNotif.map((notif, idx) => (
+								<NotificationCard
+									key={idx}
+									href={`/appointment/${notif.appointment._id}`}
+									message={notif.message}
+									currentStatus={notif.status}
+									serviceName={
+										notif.appointment.service.serviceName
+									}
+									client_image_url={notif.notifier.image_url}
+									client_name={`${notif.notifier.fname} ${notif.notifier.lname}`}
+									date="March 14, 2024"
+								/>
+							))}
+
+						{otherNotif.length < 1 && (
+							<div className="flexCenter py-4">
+								<p>No notifications here.</p>
+							</div>
+						)}
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>

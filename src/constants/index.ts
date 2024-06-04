@@ -10,6 +10,11 @@ export const NAV_LINKS = [
         label: "Manage Service"
     },
     {
+        img: "/images/calendar.svg",
+        route: "/appointment",
+        label: "Appointment"
+    },
+    {
         img: "/images/create-service.svg",
         route: "/create-service",
         label: "Create Service"
