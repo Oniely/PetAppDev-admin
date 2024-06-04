@@ -5,6 +5,7 @@ import { Appointment } from "../models/appointment.model";
 import { PetOwner } from "../models/owner.model";
 import { connectDB } from "../mongoose";
 import { revalidatePath } from "next/cache";
+import { Notification } from "../models/notification.model";
 
 export const fetchAppointments = async (providerId: string) => {
 	try {
@@ -153,14 +154,23 @@ export const updateAppointmentStatus = async ({
 			{ _id: id },
 			{ status: newStatus },
 			{ new: true }
-		);
+		).exec();
+
+		const newNotif = await Notification.findOneAndUpdate(
+			{ appointment: appointment._id },
+			{
+				status: newStatus,
+				message: `Your appointment status is now ${newStatus}`,
+			},
+			{ new: true }
+		).exec();
 
 		revalidatePath(path);
 
-		if (!appointment) {
-			return false;
-		} else {
+		if (appointment && newNotif) {
 			return true;
+		} else {
+			return false;
 		}
 	} catch (error: any) {
 		throw new Error(

@@ -71,7 +71,7 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 									className={`${
 										appointment.status === "Pending"
 											? "bg-yellow-500"
-											: appointment.status === "Cancelled"
+											: appointment.status === "Canceled"
 											? "bg-red-500"
 											: "bg-green-500"
 									} absolute top-0 -right-2.5 w-2 h-2 rounded-full animate-pulse`}
@@ -113,7 +113,7 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 					<div className="flex items-center gap-3">
 						{appointment.status !== "Reschedule" &&
 							appointment.status !== "Done" &&
-							appointment.status !== "Completed" && (
+							appointment.status !== "Completed" && appointment.status !== "Canceled" && (
 								<>
 									<AppointmentStatusDialog
 										id={params.id}

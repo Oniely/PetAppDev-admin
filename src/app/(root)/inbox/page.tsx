@@ -1,8 +1,10 @@
+import InboxAccordion from "@/components/cards/InboxAccordion";
 import BreadCrumbs from "@/components/shared/BreadCrumbs";
 
 const Inbox = () => {
 	const breadCrumbs = [
 		{
+		
 			name: "Inbox",
 			href: "/inbox",
 		},
@@ -15,7 +17,7 @@ const Inbox = () => {
 				<BreadCrumbs crumbs={breadCrumbs} />
 			</header>
 			<section className="flex flex-col gap-8">
-				Inbox
+				<InboxAccordion />
 			</section>
 		</>
 	);
