@@ -63,8 +63,8 @@ const TopBar = async () => {
 					<DropdownMenuContent>
 						<DropdownMenuLabel>Notifications</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-							{todayNotifications.length > 0 && todayNotifications.map((notif: any) => (
-								<DropdownMenuItem>
+							{todayNotifications.length > 0 && todayNotifications.map((notif: any, idx: any) => (
+								<DropdownMenuItem key={idx}>
 									<Link href={`/appointment/${notif.appointment._id}`} className="flexCenter">
 										<div className="w-2 h-2 rounded-full bg-green-400 animate-pulse mr-2" />
 										<p>{`${notif.notifier.fname} ${notif.notifier.lname}`} has requested an appointment!</p>
