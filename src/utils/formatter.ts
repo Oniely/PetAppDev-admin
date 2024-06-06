@@ -41,7 +41,7 @@ export const formatDateTime = (date: string, time: string) => {
     return datetime;
 };
 
-export function formatTimestamp(isoTimestamp) {
+export function formatTimestamp(isoTimestamp: Date) {
     // Create a new Date object from the ISO 8601 timestamp
     const date = new Date(isoTimestamp);
     
