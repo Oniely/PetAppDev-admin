@@ -5,6 +5,7 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import NotificationCard from "./NotificationCard";
+import { formatTimestamp } from "@/utils/formatter";
 
 interface Props {
 	todayNotif: any[];
@@ -13,6 +14,8 @@ interface Props {
 }
 
 const InboxAccordion = ({ todayNotif, yesterdayNotif, otherNotif }: Props) => {
+
+
 	return (
 		<>
 			<header className="flex items-center justify-between gap-8 bg-[#f1f1f1] pr-20 text-sm -mb-8">
@@ -38,9 +41,9 @@ const InboxAccordion = ({ todayNotif, yesterdayNotif, otherNotif }: Props) => {
 									serviceName={
 										notif.appointment.service.serviceName
 									}
-								client_image_url={notif.notifier.image_url}
+									client_image_url={notif.notifier.image_url}
 									client_name={`${notif.notifier.fname} ${notif.notifier.lname}`}
-									date="March 14, 2024"
+									date={`${formatTimestamp(notif.updatedAt)}`}
 								/>
 							))}
 
@@ -59,14 +62,14 @@ const InboxAccordion = ({ todayNotif, yesterdayNotif, otherNotif }: Props) => {
 								<NotificationCard
 									key={idx}
 									href={`/appointment/${notif.appointment._id}`}
-									message={notif.message}
+									message={notif.providerMessage}
 									currentStatus={notif.status}
 									serviceName={
 										notif.appointment.service.serviceName
 									}
 									client_image_url={notif.notifier.image_url}
 									client_name={`${notif.notifier.fname} ${notif.notifier.lname}`}
-									date="March 14, 2024"
+									date={`${formatTimestamp(notif.updatedAt)}`}
 								/>
 							))}
 
@@ -85,14 +88,14 @@ const InboxAccordion = ({ todayNotif, yesterdayNotif, otherNotif }: Props) => {
 								<NotificationCard
 									key={idx}
 									href={`/appointment/${notif.appointment._id}`}
-									message={notif.message}
+									message={notif.providerMessage}
 									currentStatus={notif.status}
 									serviceName={
 										notif.appointment.service.serviceName
 									}
 									client_image_url={notif.notifier.image_url}
 									client_name={`${notif.notifier.fname} ${notif.notifier.lname}`}
-									date="March 14, 2024"
+									date={`${formatTimestamp(notif.updatedAt)}`}
 								/>
 							))}
 

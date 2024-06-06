@@ -13,7 +13,7 @@ export const fetchAppointments = async (providerId: string) => {
 
 		const appointments = await Appointment.find({
 			provider: providerId,
-			status: { $nin: ["Cancelled", "Completed", "Reschedule"] },
+			status: { $nin: ["Canceled", "Completed", "Reschedule"] },
 		})
 			.populate("service")
 			.populate("petOwner")
@@ -72,7 +72,7 @@ export const getAppointmentsCount = async (providerId: string) => {
 
 		return await Appointment.countDocuments({
 			provider: providerId,
-			status: { $nin: ["Cancelled", "Completed", "Reschedule"] },
+			status: { $nin: ["Canceled", "Completed", "Reschedule"] },
 		});
 	} catch (error: any) {
 		throw new Error(
@@ -154,7 +154,19 @@ export const updateAppointmentStatus = async ({
 			{ _id: id },
 			{ status: newStatus },
 			{ new: true }
-		).exec();
+		).populate('service').exec();
+
+		if (!appointment) {
+			return false;
+		}
+
+		if (appointment.status === "Completed") {
+			const priceAppointment = await Appointment.findOneAndUpdate({ _id: id }, { price: appointment.service.price }, { new: true }).exec();
+
+			if (!priceAppointment) {
+			return false;
+		}
+		}
 
 		const newNotif = await Notification.findOneAndUpdate(
 			{ appointment: appointment._id },
@@ -165,19 +177,37 @@ export const updateAppointmentStatus = async ({
 					newStatus !== "Reschedule" ? newStatus : "Rescheduled"
 				}!`,
 			},
-			{ new: true }
+			{ upsert: true, new: true }
 		).exec();
+
+		if (!newNotif) {
+			return false;
+		}
 
 		revalidatePath(path);
 
-		if (appointment && newNotif) {
-			return true;
-		} else {
-			return false;
-		}
+		return true;
 	} catch (error: any) {
 		throw new Error(
 			`Something went wrong while updating appointment status: ${error.message}`
 		);
 	}
 };
+
+export const getEarnings = async (providerId: string) => {
+	try {
+		connectDB();
+
+		const result = await Appointment.aggregate([
+		    { $match: { provider: providerId, status: "Completed" } },
+		    { $project: { price: 1 } },
+		    { $group: { _id: null, total: { $sum: "$price" } } }
+		]);
+
+		const totalPrices = result.length > 0 ? result[0].total : 0;
+
+		return totalPrices;
+	} catch (error: any) {
+		throw new Error(`Something went wrong while getting earnings data: ${error.message}`);
+	}
+}

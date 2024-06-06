@@ -24,9 +24,17 @@ import {
 	DialogTrigger,
 } from "../ui/dialog";
 import { SignOutButton } from "@clerk/nextjs";
+import { fetchNotifications } from "@/lib/actions/notification.action";
+
 const TopBar = async () => {
 	const user = await currentUser();
 	const userData = await fetchUser(user?.id!);
+
+	const todayNotifications =
+		(await fetchNotifications({
+			providerId: userData._id!,
+			date: "Today",
+		})) || [];
 
 	return (
 		<nav className="fixed top-0 z-30 w-full flexBetween bg-low-orange px-6 h-[4rem] border-b border-b-dark-gray">
@@ -55,10 +63,19 @@ const TopBar = async () => {
 					<DropdownMenuContent>
 						<DropdownMenuLabel>Notifications</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem>Notif Item</DropdownMenuItem>
-						<DropdownMenuItem>Notif Item</DropdownMenuItem>
-						<DropdownMenuItem>Notif Item</DropdownMenuItem>
-						<DropdownMenuItem>Notif Item</DropdownMenuItem>
+							{todayNotifications.length > 0 && todayNotifications.map((notif: any) => (
+								<DropdownMenuItem>
+									<Link href={`/appointment/${notif.appointment._id}`} className="flexCenter">
+										<div className="w-2 h-2 rounded-full bg-green-400 animate-pulse mr-2" />
+										<p>{`${notif.notifier.fname} ${notif.notifier.lname}`} has requested an appointment!</p>
+									</Link>
+								</DropdownMenuItem>
+							))}
+
+
+							{todayNotifications.length < 1 && (
+								<p className="p-2 px-3 text-sm">No Notification Today!</p>
+							)}
 					</DropdownMenuContent>
 				</DropdownMenu>
 				{/* ------------------------------------------------------ */}

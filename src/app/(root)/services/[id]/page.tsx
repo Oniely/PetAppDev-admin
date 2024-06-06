@@ -76,7 +76,7 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 					</div>
 					<div className="flex items-center gap-3">
 						<Link
-							href={`/services/edit/${service._id}`}
+							href={`/appointment`}
 							className="flex-1"
 						>
 							<Button className="w-full">See Appointments</Button>
@@ -91,12 +91,6 @@ const ServiceDetail = async ({ params }: { params: { id: string } }) => {
 						</Link>
 					</div>
 				</div>
-			</section>
-			<section className="mt-10">
-				<h1 className="head-text">Extra Info</h1>
-				<p>Maybe current history appointment numbers?</p>
-				<p>Graphs?</p>
-				<p>show here all current appointments?</p>
 			</section>
 		</>
 	);

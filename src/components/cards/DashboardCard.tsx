@@ -13,11 +13,11 @@ const DashboardCard = ({ title, image_url, data, className, href }: Props) => {
 	return (
 		<Link href={href}>
 			<div
-				className={`${className} flex gap-3 px-4 py-4 max-lg:px-6 h-[10rem] max-lg:h-[8rem] min-w-fit rounded-xl cursor-pointer group shadow-md relative overflow-hidden`}
+				className={`${className} flex gap-3 px-4 py-4 max-lg:px-6 h-[10rem] max-lg:h-[8rem] rounded-xl cursor-pointer group shadow-md relative overflow-hidden`}
 			>
-				<div className="flex flex-col gap-4 leading-6">
+				<div className="flex flex-col gap-4 leading-6 max-w-[14rem]">
 					<h2 className="font-medium">{title}</h2>
-					<p className="text-4xl font-semibold">{data}</p>
+					<p className="text-4xl font-semibold truncate">{data}</p>
 				</div>
 
 				<div className="w-32 h-32 absolute -bottom-7 right-6 max-sm:w-20 max-sm:h-20 max-sm:right-3 max-sm:-bottom-5">

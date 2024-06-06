@@ -54,6 +54,7 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 							alt="Service Image"
 							className="object-cover rounded-lg"
 							draggable={false}
+							unoptimized
 							fill
 						/>
 					</div>
@@ -171,20 +172,20 @@ const AppointmentDetail = async ({ params }: { params: { id: string } }) => {
 							</span>
 						</p>
 						<p className="text-neutral-700 font-light">
-							Pet:{" "}
+							Client Pet Name:{" "}
 							<span className="font-medium">
 								{appointment.pet.petName}
 							</span>
 						</p>
 						<p className="text-neutral-700 font-light">
-							Pet Species/Breed:{" "}
+							Client Pet Species/Breed:{" "}
 							<span className="font-medium">
 								{appointment.pet.species} -{" "}
 								{appointment.pet.breed}
 							</span>
 						</p>
 						<p className="text-neutral-700 font-light">
-							Pet Age:{" "}
+							Client Pet Age:{" "}
 							<span className="font-medium">
 								{appointment.pet.age}{" "}
 								{appointment.pet.age > 1

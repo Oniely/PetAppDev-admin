@@ -4,6 +4,7 @@ import BreadCrumbs from "@/components/shared/BreadCrumbs";
 import {
 	fetchUpcomingAppointments,
 	getAppointmentsCount,
+	getEarnings
 } from "@/lib/actions/appointment.action";
 import { fetchServices } from "@/lib/actions/service.action";
 import { fetchUser } from "@/lib/actions/user.action";
@@ -24,6 +25,8 @@ const Home = async () => {
 
 	const appointments = await fetchUpcomingAppointments({ providerId: userData._id!, status: ["Pending", "Confirmed"] });
 	const appointmentsCount = await getAppointmentsCount(userData._id!);
+
+	const earnings = await getEarnings(userData._id);
 
 	return (
 		<>
@@ -63,7 +66,7 @@ const Home = async () => {
 						className="bg-[#84DCC6]"
 						title="Earnings"
 						image_url="/images/credit-card.svg"
-						data="₱0"
+						data={`₱${earnings}`}
 						href="/services"
 					/>
 				</div>
